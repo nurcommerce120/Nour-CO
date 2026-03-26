@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catalogue — Nour Commerce</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">
+    <img src="images/logo-nour-commerce.png" alt="Logo Nour Commerce" class="logo">
+    <div class="brand-text">
+      <h1>Nour Commerce</h1>
+      <p>Collection Khalifa</p>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Accueil</a>
+    <a href="catalogue.html" class="active">Produits</a>
+    <a href="#" onclick="openContact()">Contact</a>
+  </nav>
+</header>
+
+<main class="page">
+  <div class="page-title">
+    <h2>Catalogue Khalifa</h2>
+    <p>Vestes et pantalons — 6 pièces</p>
+  </div>
+
+  <section class="grid">
+
+    <article class="card">
+      <img src="images/veste-noire.png" alt="Veste noire Khalifa">
+      <div class="card-body">
+        <span class="badge">Collection Khalifa</span>
+        <h3>Veste noire</h3>
+        <p class="price">55 €</p>
+        <a class="btn" href="produit.html?item=veste-noire">Découvrir</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="images/veste-grise.png" alt="Veste grise Khalifa">
+      <div class="card-body">
+        <span class="badge">Collection Khalifa</span>
+        <h3>Veste grise</h3>
+        <p class="price">55 €</p>
+        <a class="btn" href="produit.html?item=veste-grise">Découvrir</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="images/veste-violette.png" alt="Veste violette Khalifa">
+      <div class="card-body">
+        <span class="badge">Collection Khalifa</span>
+        <h3>Veste violette</h3>
+        <p class="price">55 €</p>
+        <a class="btn" href="produit.html?item=veste-violette">Découvrir</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="images/pantalon-noir.png" alt="Pantalon noir Khalifa">
+      <div class="card-body">
+        <span class="badge">Collection Khalifa</span>
+        <h3>Pantalon noir</h3>
+        <p class="price">45 €</p>
+        <a class="btn" href="produit.html?item=pantalon-noir">Découvrir</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="images/pantalon-gris.png" alt="Pantalon gris Khalifa">
+      <div class="card-body">
+        <span class="badge">Collection Khalifa</span>
+        <h3>Pantalon gris</h3>
+        <p class="price">45 €</p>
+        <a class="btn" href="produit.html?item=pantalon-gris">Découvrir</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="images/pantalon-violet.png" alt="Pantalon violet Khalifa">
+      <div class="card-body">
+        <span class="badge">Collection Khalifa</span>
+        <h3>Pantalon violet</h3>
+        <p class="price">45 €</p>
+        <a class="btn" href="produit.html?item=pantalon-violet">Découvrir</a>
+      </div>
+    </article>
+
+  </section>
+</main>
+
+<div id="contactPopup" class="popup" onclick="closeContact()">
+  <div class="popup-content" onclick="event.stopPropagation()">
+    <button class="popup-close" onclick="closeContact()">×</button>
+    <h2>Contact</h2>
+    <p>Email : <strong>nur.commerce120@gmail.com</strong></p>
+    <p>Téléphone : <strong>06 28 49 84 93</strong></p>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>© 2026 Nour Commerce — Tous droits réservés</p>
+</footer>
+
+<script>
+  function openContact() {
+    document.getElementById("contactPopup").style.display = "flex";
+  }
+
+  function closeContact() {
+    document.getElementById("contactPopup").style.display = "none";
+  }
+</script>
+
+</body>
+</html>

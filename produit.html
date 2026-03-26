@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Produit — Nour Commerce</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">
+    <img src="images/logo-nour-commerce.png" alt="Logo Nour Commerce" class="logo">
+    <div class="brand-text">
+      <h1>Nour Commerce</h1>
+      <p>Collection Khalifa</p>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Accueil</a>
+    <a href="catalogue.html">Produits</a>
+    <a href="#" onclick="openContact()">Contact</a>
+  </nav>
+</header>
+
+<main class="page">
+  <a class="back-link" href="catalogue.html">← Retour au catalogue</a>
+
+  <section class="product-layout">
+    <div class="thumbs" id="thumbs"></div>
+
+    <div class="product-image">
+      <img id="mainImg" alt="Produit Khalifa">
+    </div>
+
+    <div class="product-info">
+      <span class="badge">Collection Khalifa</span>
+      <h2 id="pName"></h2>
+      <p class="price big" id="pPrice"></p>
+      <p class="desc" id="pDesc"></p>
+
+      <div class="row">
+        <label for="size">Taille</label>
+        <select id="size">
+          <option value="">Choisir</option>
+          <option>S</option>
+          <option>M</option>
+          <option>L</option>
+          <option>XL</option>
+        </select>
+      </div>
+
+      <div class="reviews">
+        <div class="stars">★★★★★</div>
+        <div class="muted">Avis clients (bientôt)</div>
+      </div>
+
+      <div class="orderref">
+        Référence commande : <strong id="orderRefText"></strong>
+        <div class="muted">Gardez-la pour lier votre paiement à votre commande.</div>
+      </div>
+
+      <h3>Livraison</h3>
+
+      <form class="delivery"
+            action="https://script.google.com/macros/s/AKfycbyszZooxbGID4OoKEgp2I50UFNUECPVxeySr-pVviBxmIXqKnXrTFu7gGLEdNs9R_A-3g/exec"
+            method="POST"
+            target="_blank"
+            onsubmit="return beforeSendOrder()">
+
+        <input name="nom" placeholder="Nom et prénom" required>
+        <input name="adresse" placeholder="Adresse" required>
+
+        <div class="two">
+          <input name="ville" placeholder="Ville" required>
+          <input name="code_postal" placeholder="Code postal" required>
+        </div>
+
+        <input name="telephone" placeholder="Téléphone" required>
+        <input type="email" name="email" placeholder="Adresse e-mail" required>
+
+        <input type="hidden" name="produit" id="orderProduct">
+        <input type="hidden" name="prix" id="orderPrice">
+        <input type="hidden" name="taille" id="orderSize">
+        <input type="hidden" name="reference_commande" id="orderRef">
+
+        <button class="btn primary" type="submit">
+          Envoyer mes infos de livraison
+        </button>
+
+        <p class="muted" style="margin-top:10px;">
+          Les informations fournies sont utilisées uniquement pour traiter la commande.
+        </p>
+      </form>
+
+      <p class="cash">
+        💵 Paiement en espèces possible lors d'une remise en main propre.
+      </p>
+
+      <div class="pay">
+        <form id="paypalForm"
+              action="https://www.paypal.com/cgi-bin/webscr"
+              method="post"
+              target="_blank"
+              onsubmit="return validateBeforePay()">
+
+          <input type="hidden" name="cmd" value="_xclick">
+          <input type="hidden" name="business" value="nur.commerce120@gmail.com">
+          <input type="hidden" name="item_name" id="ppItem">
+          <input type="hidden" name="currency_code" value="EUR">
+          <input type="hidden" name="amount" id="ppAmount">
+          <input type="hidden" name="item_number" id="ppOrderRef">
+          <input type="hidden" name="custom" id="ppOrderRef2">
+
+          <button class="btn paypal" type="submit">
+            Payer avec PayPal
+          </button>
+        </form>
+
+        <button class="btn revolut" onclick="payRevolut()">
+          Payer avec Revolut
+        </button>
+
+        <p class="muted">
+          Pour Revolut : indiquez cette référence dans la note du paiement :
+          <strong id="orderRefText2"></strong>
+        </p>
+
+        <p class="muted">Paiement sécurisé — Nour Commerce</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="contactPopup" class="popup" onclick="closeContact()">
+  <div class="popup-content" onclick="event.stopPropagation()">
+    <button class="popup-close" onclick="closeContact()">×</button>
+    <h2>Contact</h2>
+    <p>Email : <strong>nur.commerce120@gmail.com</strong></p>
+    <p>Téléphone : <strong>06 28 49 84 93</strong></p>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>© 2026 Nour Commerce — Tous droits réservés</p>
+</footer>
+
+<script>
+  const REVOLUT_LINK = "https://revolut.me/abdelranibel";
+
+  const products = {
+    "veste-noire": {
+      name: "Veste noire — Khalifa",
+      price: 55,
+      desc: "Veste noire sobre et moderne de la collection Khalifa.",
+      images: [
+        "images/veste-noire.png",
+        "images/veste-noire.png",
+        "images/veste-noire.png"
+      ]
+    },
+    "veste-grise": {
+      name: "Veste grise — Khalifa",
+      price: 55,
+      desc: "Veste grise minimaliste au style urbain.",
+      images: [
+        "images/veste-grise.png",
+        "images/veste-grise.png",
+        "images/veste-grise.png"
+      ]
+    },
+    "veste-violette": {
+      name: "Veste violette — Khalifa",
+      price: 55,
+      desc: "Veste violette au rendu premium et affirmé.",
+      images: [
+        "images/veste-violette.png",
+        "images/veste-violette.png",
+        "images/veste-violette.png"
+      ]
+    },
+    "pantalon-noir": {
+      name: "Pantalon noir — Khalifa",
+      price: 45,
+      desc: "Pantalon noir confortable, sobre et facile à porter.",
+      images: [
+        "images/pantalon-noir.png",
+        "images/pantalon-noir.png",
+        "images/pantalon-noir.png"
+      ]
+    },
+    "pantalon-gris": {
+      name: "Pantalon gris — Khalifa",
+      price: 45,
+      desc: "Pantalon gris moderne à la coupe clean.",
+      images: [
+        "images/pantalon-gris.png",
+        "images/pantalon-gris.png",
+        "images/pantalon-gris.png"
+      ]
+    },
+    "pantalon-violet": {
+      name: "Pantalon violet — Khalifa",
+      price: 45,
+      desc: "Pantalon violet streetwear, moderne et confortable.",
+      images: [
+        "images/pantalon-violet.png",
+        "images/pantalon-violet.png",
+        "images/pantalon-violet.png"
+      ]
+    }
+  };
+
+  function generateOrderRef() {
+    const d = new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    const rand = Math.random().toString(36).substring(2, 7).toUpperCase();
+    return `NC-${yyyy}${mm}${dd}-${rand}`;
+  }
+
+  const ORDER_REF = generateOrderRef();
+
+  const params = new URLSearchParams(window.location.search);
+  const item = params.get("item") || "veste-noire";
+  const p = products[item];
+
+  if (!p) {
+    alert("Produit introuvable.");
+    window.location.href = "catalogue.html";
+  }
+
+  document.getElementById("pName").innerText = p.name;
+  document.getElementById("pPrice").innerText = p.price + " €";
+  document.getElementById("pDesc").innerText = p.desc;
+
+  document.getElementById("ppItem").value = p.name;
+  document.getElementById("ppAmount").value = p.price;
+
+  document.getElementById("orderRefText").innerText = ORDER_REF;
+  document.getElementById("orderRefText2").innerText = ORDER_REF;
+
+  const thumbs = document.getElementById("thumbs");
+  thumbs.innerHTML = "";
+
+  p.images.forEach((src) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.className = "thumb";
+    img.onclick = () => setMain(src);
+    thumbs.appendChild(img);
+  });
+
+  function setMain(src) {
+    document.getElementById("mainImg").src = src;
+  }
+
+  setMain(p.images[0]);
+
+  function openContact() {
+    document.getElementById("contactPopup").style.display = "flex";
+  }
+
+  function closeContact() {
+    document.getElementById("contactPopup").style.display = "none";
+  }
+
+  function fillHiddenFields() {
+    document.getElementById("orderProduct").value = document.getElementById("pName").innerText;
+    document.getElementById("orderPrice").value = document.getElementById("pPrice").innerText;
+    document.getElementById("orderSize").value = document.getElementById("size").value;
+    document.getElementById("orderRef").value = ORDER_REF;
+
+    document.getElementById("ppOrderRef").value = ORDER_REF;
+    document.getElementById("ppOrderRef2").value = ORDER_REF;
+  }
+
+  function validateBeforePay() {
+    if (!document.getElementById("size").value) {
+      alert("Veuillez choisir une taille.");
+      return false;
+    }
+    fillHiddenFields();
+    return true;
+  }
+
+  function beforeSendOrder() {
+    if (!document.getElementById("size").value) {
+      alert("Veuillez choisir une taille avant d'envoyer vos infos.");
+      return false;
+    }
+    fillHiddenFields();
+    return true;
+  }
+
+  function payRevolut() {
+    if (!validateBeforePay()) return;
+    window.open(REVOLUT_LINK, "_blank");
+  }
+</script>
+
+</body>
+</html>

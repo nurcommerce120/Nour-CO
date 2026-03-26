@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nour Commerce</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">
+    <img src="images/logo-nour-commerce.png" alt="Logo Nour Commerce" class="logo">
+    <div class="brand-text">
+      <h1>Nour Commerce</h1>
+      <p>Streetwear Store</p>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html" class="active">Accueil</a>
+    <a href="catalogue.html">Produits</a>
+    <a href="#" onclick="openContact()">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <span class="hero-tag">Nour Commerce</span>
+      <h2 class="site-title">Nour Commerce</h2>
+      <p class="hero-collection">Collection Khalifa</p>
+      <p class="hero-description">
+        Une sélection streetwear sobre, moderne et premium.
+        Découvrez la collection Khalifa disponible chez Nour Commerce.
+      </p>
+      <a class="btn primary" href="catalogue.html">Voir la collection</a>
+    </div>
+  </div>
+</section>
+
+<div id="contactPopup" class="popup" onclick="closeContact()">
+  <div class="popup-content" onclick="event.stopPropagation()">
+    <button class="popup-close" onclick="closeContact()">×</button>
+    <h2>Contact</h2>
+    <p>Email : <strong>nur.commerce120@gmail.com</strong></p>
+    <p>Téléphone : <strong>06 28 49 84 93</strong></p>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>© 2026 Nour Commerce — Tous droits réservés</p>
+</footer>
+
+<script>
+  function openContact() {
+    document.getElementById("contactPopup").style.display = "flex";
+  }
+
+  function closeContact() {
+    document.getElementById("contactPopup").style.display = "none";
+  }
+</script>
+
+</body>
+</html>
