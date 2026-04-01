@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Suivi de commande — Nour Commerce</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">
+    <img src="images/logo-nour-commerce.png" alt="Logo Nour Commerce" class="logo">
+    <div class="brand-text">
+      <h1>Nour Commerce</h1>
+      <p>Collection Khalifa</p>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a href="index.html">Accueil</a>
+    <a href="catalogue.html">Produits</a>
+    <a href="suivi.html" class="active">Suivi</a>
+    <a href="#" onclick="openContact()">Contact</a>
+  </nav>
+</header>
+
+<main class="page">
+  <div class="page-title">
+    <h2>Suivi de commande</h2>
+    <p>Entrez votre référence de commande pour voir l’avancement.</p>
+  </div>
+
+  <div class="tracking-box">
+    <input id="trackingRef" type="text" placeholder="Exemple : NC-20260401-AB123">
+    <button class="btn" onclick="checkTracking()">Vérifier</button>
+  </div>
+
+  <div id="trackingResult"></div>
+</main>
+
+<div id="contactPopup" class="popup" onclick="closeContact()">
+  <div class="popup-content" onclick="event.stopPropagation()">
+    <button class="popup-close" onclick="closeContact()">×</button>
+    <h2>Contact</h2>
+    <p>Email : <strong>nur.commerce120@gmail.com</strong></p>
+    <p>Téléphone : <strong>06 28 49 84 93</strong></p>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>© 2026 Nour Commerce — Tous droits réservés</p>
+</footer>
+
+<script>
+  const TRACKING_API = "https://script.google.com/macros/s/AKfycby5G3muha7gBsRbgNquD99abO1a6oKtCtJTr9_6zeGtdXF1qct1hL7wG1_XTkVJ67zt9A/exec";
+
+  function openContact() {
+    document.getElementById("contactPopup").style.display = "flex";
+  }
+
+  function closeContact() {
+    document.getElementById("contactPopup").style.display = "none";
+  }
+
+  function renderTracking(data) {
+    const box = document.getElementById("trackingResult");
+
+    if (!data.found) {
+      box.innerHTML = `
+        <div class="tracking-result">
+          <h3>Commande introuvable</h3>
+          <p class="muted">Vérifiez la référence puis réessayez.</p>
+        </div>
+      `;
+      return;
+    }
+
+    box.innerHTML = `
+      <div class="tracking-result">
+        <h3>Commande trouvée</h3>
+        <div class="tracking-grid">
+          <div><strong>Référence</strong><br>${data.reference || "-"}</div>
+          <div><strong>Paiement reçu</strong><br>${data.paid || "-"}</div>
+          <div><strong>Mode de paiement</strong><br>${data.paymentMode || "-"}</div>
+          <div><strong>Réf. paiement</strong><br>${data.paymentRef || "-"}</div>
+          <div><strong>Date paiement</strong><br>${data.paymentDate || "-"}</div>
+          <div><strong>Statut livraison</strong><br>${data.shippingStatus || "-"}</div>
+          <div><strong>Date expédition</strong><br>${data.shippingDate || "-"}</div>
+          <div><strong>N° de suivi</strong><br>${data.trackingNumber || "-"}</div>
+          <div style="grid-column:1/-1;"><strong>Notes</strong><br>${data.notes || "-"}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  function checkTracking() {
+    const ref = document.getElementById("trackingRef").value.trim();
+    const box = document.getElementById("trackingResult");
+
+    if (!ref) {
+      box.innerHTML = `
+        <div class="tracking-result">
+          <p class="muted">Merci d’entrer une référence de commande.</p>
+        </div>
+      `;
+      return;
+    }
+
+    const callbackName = "trackingCallback_" + Date.now();
+
+    window[callbackName] = function(data) {
+      renderTracking(data);
+      delete window[callbackName];
+      script.remove();
+    };
+
+    const script = document.createElement("script");
+    script.src = TRACKING_API + "?reference=" + encodeURIComponent(ref) + "&callback=" + callbackName;
+    document.body.appendChild(script);
+  }
+</script>
+
+</body>
+</html>
