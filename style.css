@@ -21,18 +21,18 @@ html, body{
   color: var(--text);
 }
 
+/* HEADER */
 .header{
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(255,255,255,.92);
-  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,.95);
   border-bottom: 1px solid var(--border);
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding: 10px 28px;
-  gap: 20px;
+  padding: 0 28px;
+  height: 80px;
 }
 
 .brand{
@@ -43,10 +43,11 @@ html, body{
 }
 
 .logo{
-  height:80px;
+  height:110px;
   width:auto;
   object-fit:contain;
-  display:block;
+  transform: translateY(10px);
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
 }
 
 .brand-text h1{
@@ -215,6 +216,20 @@ html, body{
 .page-title p{
   margin:8px 0 0;
   color:var(--muted);
+}
+
+.catalog-nav{
+  max-width:1100px;
+  margin:0 auto 24px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.section-title{
+  max-width:1100px;
+  margin:30px auto 16px;
+  font-size:24px;
 }
 
 /* GRID CATALOGUE */
@@ -428,6 +443,40 @@ select{
   margin-bottom:10px;
 }
 
+/* TRACKING */
+.tracking-box{
+  max-width:700px;
+  margin:0 auto 24px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.tracking-box input{
+  flex:1;
+  min-width:260px;
+  padding:12px 14px;
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+
+.tracking-result{
+  max-width:900px;
+  margin:0 auto;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:#fff;
+  padding:20px;
+  box-shadow:0 8px 20px rgba(0,0,0,.04);
+}
+
+.tracking-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:16px;
+  margin-top:16px;
+}
+
 /* POPUP */
 .popup{
   display:none;
@@ -497,6 +546,7 @@ select{
     padding:14px 16px;
     flex-direction:column;
     gap:12px;
+    height:auto;
   }
 
   .brand{
@@ -507,6 +557,7 @@ select{
   .logo{
     width:100px;
     height:100px;
+    transform:none;
   }
 
   .brand-text h1{
@@ -556,6 +607,14 @@ select{
   }
 
   .delivery .two{
+    grid-template-columns:1fr;
+  }
+
+  .tracking-box{
+    flex-direction:column;
+  }
+
+  .tracking-grid{
     grid-template-columns:1fr;
   }
 }
