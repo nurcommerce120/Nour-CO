@@ -38,16 +38,21 @@ html, body{
 .brand{
   display:flex;
   align-items:center;
-  gap:14px;
-  flex-shrink:0;
+  gap:20px;
+}
+
+/* NOUVEAU */
+.brand-text{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 
 .logo{
-  height:110px;
+  height:270px; /* augmente ici */
   width:auto;
   object-fit:contain;
-  transform: translateY(10px);
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
+  transform: translateY(8px);
 }
 
 .brand-text h1{
