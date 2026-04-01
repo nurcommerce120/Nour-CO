@@ -20,6 +20,7 @@
   <nav class="nav">
     <a href="index.html">Accueil</a>
     <a href="catalogue.html" class="active">Produits</a>
+    <a href="suivi.html">Suivi</a>
     <a href="#" onclick="openContact()">Contact</a>
   </nav>
 </header>
@@ -27,11 +28,17 @@
 <main class="page">
   <div class="page-title">
     <h2>Catalogue Khalifa</h2>
-    <p>Vestes et pantalons — 6 pièces</p>
+    <p>Vêtements et utilitaire</p>
   </div>
 
-  <section class="grid">
+  <div class="catalog-nav">
+    <a href="#vetements" class="btn">Vêtements</a>
+    <a href="#utilitaire" class="btn">Utilitaire</a>
+  </div>
 
+  <h3 id="vetements" class="section-title">Vêtements</h3>
+
+  <section class="grid">
     <article class="card">
       <img src="images/veste-noire.png" alt="Veste noire Khalifa">
       <div class="card-body">
@@ -91,7 +98,20 @@
         <a class="btn" href="produit.html?item=pantalon-violet">Découvrir</a>
       </div>
     </article>
+  </section>
 
+  <h3 id="utilitaire" class="section-title">Utilitaire</h3>
+
+  <section class="grid">
+    <article class="card">
+      <img src="images/tapis-bordeaux.png" alt="Tapis bordeaux">
+      <div class="card-body">
+        <span class="badge">Utilitaire</span>
+        <h3>Tapis bordeaux</h3>
+        <p class="price">20 €</p>
+        <a class="btn" href="produit.html?item=tapis-bordeaux">Découvrir</a>
+      </div>
+    </article>
   </section>
 </main>
 
