@@ -49,10 +49,11 @@ html, body{
 }
 
 .logo{
-  height:270px; /* augmente ici */
+  height:110px;
   width:auto;
   object-fit:contain;
-  transform: translateY(8px);
+  transform: translateY(10px);
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
 }
 
 .brand-text h1{
