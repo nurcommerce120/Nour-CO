@@ -432,10 +432,26 @@ select{
   gap:10px;
 }
 
+.shipping-note{
+  margin:10px 0 16px;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#fafafa;
+  line-height:1.5;
+  font-size:14px;
+}
+
 .stock-count{
-  margin:8px 0 14px;
+  margin:8px 0 8px;
   font-weight:700;
   color:#111;
+}
+
+.delivery-price{
+  margin:0 0 14px;
+  font-weight:700;
+  color:#c1121f;
 }
 
 .cash{
