@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Catalogue — Nour Commerce</title>
+  <title>Produit — Nour Commerce</title>
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
@@ -20,99 +20,83 @@
 
   <nav class="nav">
     <a href="index.html">Accueil</a>
-    <a href="catalogue.html" class="active">Produits</a>
+    <a href="catalogue.html">Produits</a>
     <a href="suivi.html">Suivi</a>
     <a href="#" onclick="openContact()">Contact</a>
   </nav>
 </header>
 
 <main class="page">
-  <div class="page-title">
-    <h2>Catalogue Khalifa</h2>
-    <p>Vêtements et utilitaire</p>
-  </div>
+  <a class="back-link" href="catalogue.html">← Retour au catalogue</a>
 
-  <div class="catalog-nav">
-    <a href="#vetements" class="btn">Vêtements</a>
-    <a href="#utilitaire" class="btn">Utilitaire</a>
-  </div>
+  <section class="product-layout">
+    <div class="thumbs" id="thumbs"></div>
 
-  <h3 id="vetements" class="section-title">Vêtements</h3>
+    <div class="product-image">
+      <img id="mainImg" alt="Produit">
+    </div>
 
-  <section class="grid">
-    <article class="card">
-      <img src="images/veste-noire.png" alt="Veste noire Khalifa">
-      <div class="card-body">
-        <span class="badge">Collection Khalifa</span>
-        <h3>Veste noire</h3>
-        <p class="price">55 €</p>
-        <a class="btn" href="produit.html?item=veste-noire">Découvrir</a>
+    <div class="product-info">
+      <span class="badge" id="productBadge">Collection Khalifa</span>
+      <h2 id="pName"></h2>
+      <p class="price big" id="pPrice"></p>
+      <p class="stock-count" id="stockText"></p>
+      <p class="desc" id="pDesc"></p>
+
+      <div class="row">
+        <label for="size" id="optionLabel">Taille</label>
+        <select id="size"></select>
       </div>
-    </article>
 
-    <article class="card">
-      <img src="images/veste-grise.png" alt="Veste grise Khalifa">
-      <div class="card-body">
-        <span class="badge">Collection Khalifa</span>
-        <h3>Veste grise</h3>
-        <p class="price">55 €</p>
-        <a class="btn" href="produit.html?item=veste-grise">Découvrir</a>
+      <div class="reviews">
+        <div class="stars">★★★★★</div>
+        <div class="muted">Avis clients (bientôt)</div>
       </div>
-    </article>
 
-    <article class="card">
-      <img src="images/veste-violette.png" alt="Veste violette Khalifa">
-      <div class="card-body">
-        <span class="badge">Collection Khalifa</span>
-        <h3>Veste violette</h3>
-        <p class="price">55 €</p>
-        <a class="btn" href="produit.html?item=veste-violette">Découvrir</a>
+      <div class="orderref">
+        Référence commande : <strong id="orderRefText"></strong>
+        <div class="muted">Gardez-la pour lier votre paiement à votre commande.</div>
       </div>
-    </article>
 
-    <article class="card">
-      <img src="images/pantalon-noir.png" alt="Pantalon noir Khalifa">
-      <div class="card-body">
-        <span class="badge">Collection Khalifa</span>
-        <h3>Pantalon noir</h3>
-        <p class="price">45 €</p>
-        <a class="btn" href="produit.html?item=pantalon-noir">Découvrir</a>
-      </div>
-    </article>
+      <h3>Informations de livraison</h3>
 
-    <article class="card">
-      <img src="images/pantalon-gris.png" alt="Pantalon gris Khalifa">
-      <div class="card-body">
-        <span class="badge">Collection Khalifa</span>
-        <h3>Pantalon gris</h3>
-        <p class="price">45 €</p>
-        <a class="btn" href="produit.html?item=pantalon-gris">Découvrir</a>
-      </div>
-    </article>
+      <p class="shipping-note">
+        📍 Remise en main propre possible dans le 93.<br>
+        🚚 En dehors du 93, envoi possible via Mondial Relay ou Colissimo, aux frais du client.<br>
+        <strong>Les frais de livraison ne sont pas inclus dans le prix affiché.</strong>
+      </p>
 
-    <article class="card">
-      <img src="images/pantalon-violet.png" alt="Pantalon violet Khalifa">
-      <div class="card-body">
-        <span class="badge">Collection Khalifa</span>
-        <h3>Pantalon violet</h3>
-        <p class="price">45 €</p>
-        <a class="btn" href="produit.html?item=pantalon-violet">Découvrir</a>
-      </div>
-    </article>
-  </section>
+      <form class="delivery"
+            action="https://script.google.com/macros/s/AKfycbzxX4hBIQyvZr7LdFRxA1U337SQ4BnE0tsU6PjZ0dAR2kqTT1GXYfdphDOS223CcemMwQ/exec"
+            method="POST"
+            onsubmit="return preparePaymentRedirect()">
 
-  <h3 id="utilitaire" class="section-title">Utilitaire</h3>
+        <input id="fullname" name="nom" placeholder="Nom et prénom" required>
+        <input id="address" name="adresse" placeholder="Adresse" required>
 
-  <section class="grid">
-    <article class="card">
-      <img src="images/tapis-bordeaux.png" alt="Tapis bordeaux">
-      <div class="card-body">
-        <span class="badge">Utilitaire</span>
-        <h3>Tapis bordeaux</h3>
-        <p class="price">20 €</p>
-        <a class="btn" href="produit.html?item=tapis-bordeaux">Découvrir</a>
-      </div>
-    </article>
+        <div class="two">
+          <input id="city" name="ville" placeholder="Ville" required>
+          <input id="postal" name="code_postal" placeholder="Code postal" required>
+        </div>
+
+        <input id="phone" name="telephone" placeholder="Téléphone" required>
+        <input id="email" type="email" name="email" placeholder="Adresse e-mail" required>
+
+        <input type="hidden" name="produit" id="orderProduct">
+        <input type="hidden" name="prix" id="orderPrice">
+        <input type="hidden" name="taille" id="orderSize">
+        <input type="hidden" name="reference_commande" id="orderRef">
+        <input type="hidden" name="return_url" id="returnUrl">
+
+        <button class="btn primary" type="submit">
+          Continuer vers le paiement
+        </button>
+
+        <p class="muted" style="margin-top:10px;">
+          Vos informations seront enregistrées avant le passage au paiement.
+        </p>
+      </form>
+    </div>
   </section>
 </main>
 
@@ -130,6 +114,159 @@
 </footer>
 
 <script>
+  const products = {
+    "veste-noire": {
+      name: "Veste noire — Khalifa",
+      price: 55,
+      stock: 3,
+      desc: "Veste noire sobre et moderne de la collection Khalifa.",
+      images: ["images/veste-noire.png","images/veste-noire.png","images/veste-noire.png"],
+      type: "vetement",
+      badge: "Collection Khalifa"
+    },
+    "veste-grise": {
+      name: "Veste grise — Khalifa",
+      price: 55,
+      stock: 3,
+      desc: "Veste grise minimaliste au style urbain.",
+      images: ["images/veste-grise.png","images/veste-grise.png","images/veste-grise.png"],
+      type: "vetement",
+      badge: "Collection Khalifa"
+    },
+    "veste-violette": {
+      name: "Veste violette — Khalifa",
+      price: 55,
+      stock: 2,
+      desc: "Veste violette au rendu premium et affirmé.",
+      images: ["images/veste-violette.png","images/veste-violette.png","images/veste-violette.png"],
+      type: "vetement",
+      badge: "Collection Khalifa"
+    },
+    "pantalon-noir": {
+      name: "Pantalon noir — Khalifa",
+      price: 45,
+      stock: 4,
+      desc: "Pantalon noir confortable, sobre et facile à porter.",
+      images: ["images/pantalon-noir.png","images/pantalon-noir.png","images/pantalon-noir.png"],
+      type: "vetement",
+      badge: "Collection Khalifa"
+    },
+    "pantalon-gris": {
+      name: "Pantalon gris — Khalifa",
+      price: 45,
+      stock: 4,
+      desc: "Pantalon gris moderne à la coupe clean.",
+      images: ["images/pantalon-gris.png","images/pantalon-gris.png","images/pantalon-gris.png"],
+      type: "vetement",
+      badge: "Collection Khalifa"
+    },
+    "pantalon-violet": {
+      name: "Pantalon violet — Khalifa",
+      price: 45,
+      stock: 2,
+      desc: "Pantalon violet streetwear, moderne et confortable.",
+      images: ["images/pantalon-violet.png","images/pantalon-violet.png","images/pantalon-violet.png"],
+      type: "vetement",
+      badge: "Collection Khalifa"
+    },
+    "tapis-bordeaux": {
+      name: "Tapis bordeaux",
+      price: 20,
+      stock: 2,
+      desc: "Tapis bordeaux pratique, confortable et élégant, idéal pour un usage utilitaire.",
+      images: ["images/tapis-bordeaux.png","images/tapis-bordeaux.png","images/tapis-bordeaux.png"],
+      type: "utilitaire",
+      badge: "Utilitaire"
+    }
+  };
+
+  function generateOrderRef() {
+    const d = new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    const rand = Math.random().toString(36).substring(2, 7).toUpperCase();
+    return `NC-${yyyy}${mm}${dd}-${rand}`;
+  }
+
+  const ORDER_REF = generateOrderRef();
+  const params = new URLSearchParams(window.location.search);
+  const item = params.get("item") || "veste-noire";
+  const p = products[item];
+
+  if (!p) {
+    alert("Produit introuvable.");
+    window.location.href = "catalogue.html";
+  }
+
+  document.getElementById("pName").innerText = p.name;
+  document.getElementById("pPrice").innerText = p.price + " €";
+  document.getElementById("pDesc").innerText = p.desc;
+  document.getElementById("productBadge").innerText = p.badge;
+  document.getElementById("stockText").innerText = "Stock restant : " + p.stock;
+  document.getElementById("orderRefText").innerText = ORDER_REF;
+
+  const optionLabel = document.getElementById("optionLabel");
+  const sizeSelect = document.getElementById("size");
+
+  if (p.type === "utilitaire") {
+    optionLabel.innerText = "Couleur";
+    sizeSelect.innerHTML = `
+      <option value="">Choisir</option>
+      <option value="Bordeaux">Bordeaux</option>
+    `;
+  } else {
+    optionLabel.innerText = "Taille";
+    sizeSelect.innerHTML = `
+      <option value="">Choisir</option>
+      <option>S</option>
+      <option>M</option>
+      <option>L</option>
+      <option>XL</option>
+    `;
+  }
+
+  const thumbs = document.getElementById("thumbs");
+  thumbs.innerHTML = "";
+
+  p.images.forEach((src) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.className = "thumb";
+    img.onclick = () => setMain(src);
+    thumbs.appendChild(img);
+  });
+
+  function setMain(src) {
+    document.getElementById("mainImg").src = src;
+  }
+
+  setMain(p.images[0]);
+
+  document.getElementById("orderProduct").value = p.name;
+  document.getElementById("orderPrice").value = p.price;
+  document.getElementById("orderRef").value = ORDER_REF;
+
+  function preparePaymentRedirect() {
+    const option = document.getElementById("size").value;
+    if (!option) {
+      alert("Veuillez choisir une option.");
+      return false;
+    }
+
+    document.getElementById("orderSize").value = option;
+
+    const paymentUrl =
+      window.location.origin +
+      window.location.pathname.replace("produit.html", "paiement.html") +
+      "?item=" + encodeURIComponent(item) +
+      "&ref=" + encodeURIComponent(ORDER_REF) +
+      "&option=" + encodeURIComponent(option);
+
+    document.getElementById("returnUrl").value = paymentUrl;
+    return true;
+  }
+
   function openContact() {
     document.getElementById("contactPopup").style.display = "flex";
   }
