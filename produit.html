@@ -41,7 +41,6 @@
       <h2 id="pName"></h2>
       <p class="price big" id="pPrice"></p>
       <p class="stock-count" id="stockText"></p>
-      <p class="delivery-price" id="deliveryPriceText"></p>
       <p class="desc" id="pDesc"></p>
 
       <div class="row">
@@ -59,79 +58,34 @@
         <div class="muted">Gardez-la pour lier votre paiement à votre commande.</div>
       </div>
 
-      <h3>Livraison</h3>
+      <h3>Informations de livraison</h3>
 
       <p class="shipping-note">
-        📍 Remise en main propre possible dans le 93. <br>
-        🚚 En dehors du 93, livraison possible via Mondial Relay ou Colissimo, aux frais du client.
+        📍 Remise en main propre possible dans le 93.<br>
+        🚚 En dehors du 93, envoi possible via Mondial Relay ou Colissimo, aux frais du client.<br>
+        <strong>Les frais de livraison ne sont pas inclus dans le prix affiché.</strong>
       </p>
 
-      <form class="delivery"
-            action="https://script.google.com/macros/s/AKfycbz3waGuYXkZLR_hb19oZvNcczXNZKhYgQLbiatm5X3u0IOn2WRongBy0wp_d2zF2SeqQw/exec"
-            method="POST"
-            target="_blank"
-            onsubmit="return beforeSendOrder()">
-
-        <input name="nom" placeholder="Nom et prénom" required>
-        <input name="adresse" placeholder="Adresse" required>
+      <form class="delivery" onsubmit="return continueToPayment(event)">
+        <input id="fullname" name="nom" placeholder="Nom et prénom" required>
+        <input id="address" name="adresse" placeholder="Adresse" required>
 
         <div class="two">
-          <input name="ville" placeholder="Ville" required>
-          <input name="code_postal" placeholder="Code postal" required>
+          <input id="city" name="ville" placeholder="Ville" required>
+          <input id="postal" name="code_postal" placeholder="Code postal" required>
         </div>
 
-        <input name="telephone" placeholder="Téléphone" required>
-        <input type="email" name="email" placeholder="Adresse e-mail" required>
-
-        <input type="hidden" name="produit" id="orderProduct">
-        <input type="hidden" name="prix" id="orderPrice">
-        <input type="hidden" name="taille" id="orderSize">
-        <input type="hidden" name="reference_commande" id="orderRef">
+        <input id="phone" name="telephone" placeholder="Téléphone" required>
+        <input id="email" type="email" name="email" placeholder="Adresse e-mail" required>
 
         <button class="btn primary" type="submit">
-          Envoyer mes infos de livraison
+          Continuer vers le paiement
         </button>
 
         <p class="muted" style="margin-top:10px;">
-          Les informations fournies sont utilisées uniquement pour traiter la commande.
+          Vos informations seront enregistrées avant le passage au paiement.
         </p>
       </form>
-
-      <p class="cash">
-        💵 Paiement en espèces possible lors d'une remise en main propre.
-      </p>
-
-      <div class="pay">
-        <form id="paypalForm"
-              action="https://www.paypal.com/cgi-bin/webscr"
-              method="post"
-              target="_blank"
-              onsubmit="return validateBeforePay()">
-
-          <input type="hidden" name="cmd" value="_xclick">
-          <input type="hidden" name="business" value="nur.commerce120@gmail.com">
-          <input type="hidden" name="item_name" id="ppItem">
-          <input type="hidden" name="currency_code" value="EUR">
-          <input type="hidden" name="amount" id="ppAmount">
-          <input type="hidden" name="item_number" id="ppOrderRef">
-          <input type="hidden" name="custom" id="ppOrderRef2">
-
-          <button class="btn paypal" type="submit">
-            Acheter maintenant avec PayPal
-          </button>
-        </form>
-
-        <button class="btn revolut" onclick="payRevolut()">
-          Acheter maintenant avec Revolut
-        </button>
-
-        <p class="muted">
-          Pour Revolut : indiquez cette référence dans la note du paiement :
-          <strong id="orderRefText2"></strong>
-        </p>
-
-        <p class="muted">Paiement sécurisé — Nour Commerce</p>
-      </div>
     </div>
   </section>
 </main>
@@ -150,13 +104,12 @@
 </footer>
 
 <script>
-  const REVOLUT_LINK = "https://revolut.me/abdelranibel";
+  const APPS_SCRIPT_URL = "TON_URL_APPS_SCRIPT_ICI";
 
   const products = {
     "veste-noire": {
       name: "Veste noire — Khalifa",
       price: 55,
-      deliveryPrice: 5,
       stock: 3,
       desc: "Veste noire sobre et moderne de la collection Khalifa.",
       images: ["images/veste-noire.png","images/veste-noire.png","images/veste-noire.png"],
@@ -166,7 +119,6 @@
     "veste-grise": {
       name: "Veste grise — Khalifa",
       price: 55,
-      deliveryPrice: 5,
       stock: 3,
       desc: "Veste grise minimaliste au style urbain.",
       images: ["images/veste-grise.png","images/veste-grise.png","images/veste-grise.png"],
@@ -176,7 +128,6 @@
     "veste-violette": {
       name: "Veste violette — Khalifa",
       price: 55,
-      deliveryPrice: 5,
       stock: 2,
       desc: "Veste violette au rendu premium et affirmé.",
       images: ["images/veste-violette.png","images/veste-violette.png","images/veste-violette.png"],
@@ -186,7 +137,6 @@
     "pantalon-noir": {
       name: "Pantalon noir — Khalifa",
       price: 45,
-      deliveryPrice: 5,
       stock: 4,
       desc: "Pantalon noir confortable, sobre et facile à porter.",
       images: ["images/pantalon-noir.png","images/pantalon-noir.png","images/pantalon-noir.png"],
@@ -196,7 +146,6 @@
     "pantalon-gris": {
       name: "Pantalon gris — Khalifa",
       price: 45,
-      deliveryPrice: 5,
       stock: 4,
       desc: "Pantalon gris moderne à la coupe clean.",
       images: ["images/pantalon-gris.png","images/pantalon-gris.png","images/pantalon-gris.png"],
@@ -206,7 +155,6 @@
     "pantalon-violet": {
       name: "Pantalon violet — Khalifa",
       price: 45,
-      deliveryPrice: 5,
       stock: 2,
       desc: "Pantalon violet streetwear, moderne et confortable.",
       images: ["images/pantalon-violet.png","images/pantalon-violet.png","images/pantalon-violet.png"],
@@ -216,7 +164,6 @@
     "tapis-bordeaux": {
       name: "Tapis bordeaux",
       price: 20,
-      deliveryPrice: 5,
       stock: 2,
       desc: "Tapis bordeaux pratique, confortable et élégant, idéal pour un usage utilitaire.",
       images: ["images/tapis-bordeaux.png","images/tapis-bordeaux.png","images/tapis-bordeaux.png"],
@@ -249,7 +196,7 @@
   document.getElementById("pDesc").innerText = p.desc;
   document.getElementById("productBadge").innerText = p.badge;
   document.getElementById("stockText").innerText = "Stock restant : " + p.stock;
-  document.getElementById("deliveryPriceText").innerText = "Livraison : +" + p.deliveryPrice + " €";
+  document.getElementById("orderRefText").innerText = ORDER_REF;
 
   const optionLabel = document.getElementById("optionLabel");
   const sizeSelect = document.getElementById("size");
@@ -270,12 +217,6 @@
       <option>XL</option>
     `;
   }
-
-  document.getElementById("ppItem").value = p.name + " - " + ORDER_REF;
-  document.getElementById("ppAmount").value = p.price;
-
-  document.getElementById("orderRefText").innerText = ORDER_REF;
-  document.getElementById("orderRefText2").innerText = ORDER_REF;
 
   const thumbs = document.getElementById("thumbs");
   thumbs.innerHTML = "";
@@ -302,37 +243,45 @@
     document.getElementById("contactPopup").style.display = "none";
   }
 
-  function fillHiddenFields() {
-    document.getElementById("orderProduct").value = document.getElementById("pName").innerText;
-    document.getElementById("orderPrice").value = document.getElementById("pPrice").innerText;
-    document.getElementById("orderSize").value = document.getElementById("size").value;
-    document.getElementById("orderRef").value = ORDER_REF;
+  async function continueToPayment(event) {
+    event.preventDefault();
 
-    document.getElementById("ppOrderRef").value = ORDER_REF;
-    document.getElementById("ppOrderRef2").value = ORDER_REF;
-  }
-
-  function validateBeforePay() {
-    if (!document.getElementById("size").value) {
+    const option = document.getElementById("size").value;
+    if (!option) {
       alert("Veuillez choisir une option.");
       return false;
     }
-    fillHiddenFields();
-    return true;
-  }
 
-  function beforeSendOrder() {
-    if (!document.getElementById("size").value) {
-      alert("Veuillez choisir une option avant d'envoyer vos infos.");
-      return false;
+    const payload = new URLSearchParams();
+    payload.append("nom", document.getElementById("fullname").value.trim());
+    payload.append("adresse", document.getElementById("address").value.trim());
+    payload.append("ville", document.getElementById("city").value.trim());
+    payload.append("code_postal", document.getElementById("postal").value.trim());
+    payload.append("telephone", document.getElementById("phone").value.trim());
+    payload.append("email", document.getElementById("email").value.trim());
+    payload.append("produit", p.name);
+    payload.append("prix", p.price);
+    payload.append("taille", option);
+    payload.append("reference_commande", ORDER_REF);
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        body: payload
+      });
+
+      const paymentUrl =
+        "paiement.html?item=" + encodeURIComponent(item) +
+        "&ref=" + encodeURIComponent(ORDER_REF) +
+        "&option=" + encodeURIComponent(option);
+
+      window.location.href = paymentUrl;
+    } catch (error) {
+      alert("Erreur lors de l’enregistrement des informations.");
+      console.error(error);
     }
-    fillHiddenFields();
-    return true;
-  }
 
-  function payRevolut() {
-    if (!validateBeforePay()) return;
-    window.open(REVOLUT_LINK, "_blank");
+    return false;
   }
 </script>
 
