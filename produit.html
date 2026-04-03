@@ -48,14 +48,8 @@
         <select id="size"></select>
       </div>
 
-      <div class="reviews">
-        <div class="stars">★★★★★</div>
-        <div class="muted">Avis clients (bientôt)</div>
-      </div>
-
       <div class="orderref">
         Référence commande : <strong id="orderRefText"></strong>
-        <div class="muted">Gardez-la pour lier votre paiement à votre commande.</div>
       </div>
 
       <h3>Informations de livraison</h3>
@@ -66,24 +60,24 @@
         <strong>Les frais de livraison ne sont pas inclus dans le prix affiché.</strong>
       </p>
 
-      <form class="delivery" onsubmit="return continueToPayment(event)">
-        <input id="fullname" name="nom" placeholder="Nom et prénom" required>
-        <input id="address" name="adresse" placeholder="Adresse" required>
+      <form class="delivery" onsubmit="return goToPayment(event)">
+        <input id="fullname" placeholder="Nom et prénom" required>
+        <input id="address" placeholder="Adresse" required>
 
         <div class="two">
-          <input id="city" name="ville" placeholder="Ville" required>
-          <input id="postal" name="code_postal" placeholder="Code postal" required>
+          <input id="city" placeholder="Ville" required>
+          <input id="postal" placeholder="Code postal" required>
         </div>
 
-        <input id="phone" name="telephone" placeholder="Téléphone" required>
-        <input id="email" type="email" name="email" placeholder="Adresse e-mail" required>
+        <input id="phone" placeholder="Téléphone" required>
+        <input id="email" type="email" placeholder="Adresse e-mail" required>
 
         <button class="btn primary" type="submit">
           Continuer vers le paiement
         </button>
 
         <p class="muted" style="margin-top:10px;">
-          Vos informations seront enregistrées avant le passage au paiement.
+          Vos informations seront conservées pour finaliser le paiement sur la page suivante.
         </p>
       </form>
     </div>
@@ -104,8 +98,6 @@
 </footer>
 
 <script>
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz3waGuYXkZLR_hb19oZvNcczXNZKhYgQLbiatm5X3u0IOn2WRongBy0wp_d2zF2SeqQw/exec";
-
   const products = {
     "veste-noire": {
       name: "Veste noire — Khalifa",
@@ -219,31 +211,18 @@
   }
 
   const thumbs = document.getElementById("thumbs");
-  thumbs.innerHTML = "";
-
   p.images.forEach((src) => {
     const img = document.createElement("img");
     img.src = src;
     img.className = "thumb";
-    img.onclick = () => setMain(src);
+    img.onclick = () => {
+      document.getElementById("mainImg").src = src;
+    };
     thumbs.appendChild(img);
   });
+  document.getElementById("mainImg").src = p.images[0];
 
-  function setMain(src) {
-    document.getElementById("mainImg").src = src;
-  }
-
-  setMain(p.images[0]);
-
-  function openContact() {
-    document.getElementById("contactPopup").style.display = "flex";
-  }
-
-  function closeContact() {
-    document.getElementById("contactPopup").style.display = "none";
-  }
-
-  async function continueToPayment(event) {
+  function goToPayment(event) {
     event.preventDefault();
 
     const option = document.getElementById("size").value;
@@ -252,36 +231,31 @@
       return false;
     }
 
-    const payload = new URLSearchParams();
-    payload.append("nom", document.getElementById("fullname").value.trim());
-    payload.append("adresse", document.getElementById("address").value.trim());
-    payload.append("ville", document.getElementById("city").value.trim());
-    payload.append("code_postal", document.getElementById("postal").value.trim());
-    payload.append("telephone", document.getElementById("phone").value.trim());
-    payload.append("email", document.getElementById("email").value.trim());
-    payload.append("produit", p.name);
-    payload.append("prix", p.price);
-    payload.append("taille", option);
-    payload.append("reference_commande", ORDER_REF);
+    const draft = {
+      reference: ORDER_REF,
+      item: item,
+      productName: p.name,
+      price: p.price,
+      option: option,
+      nom: document.getElementById("fullname").value.trim(),
+      adresse: document.getElementById("address").value.trim(),
+      ville: document.getElementById("city").value.trim(),
+      code_postal: document.getElementById("postal").value.trim(),
+      telephone: document.getElementById("phone").value.trim(),
+      email: document.getElementById("email").value.trim()
+    };
 
-    try {
-      await fetch(APPS_SCRIPT_URL, {
-        method: "POST",
-        body: payload
-      });
-
-      const paymentUrl =
-        "paiement.html?item=" + encodeURIComponent(item) +
-        "&ref=" + encodeURIComponent(ORDER_REF) +
-        "&option=" + encodeURIComponent(option);
-
-      window.location.href = paymentUrl;
-    } catch (error) {
-      alert("Erreur lors de l’enregistrement des informations.");
-      console.error(error);
-    }
-
+    sessionStorage.setItem("nour_order_draft", JSON.stringify(draft));
+    window.location.href = "paiement.html?item=" + encodeURIComponent(item);
     return false;
+  }
+
+  function openContact() {
+    document.getElementById("contactPopup").style.display = "flex";
+  }
+
+  function closeContact() {
+    document.getElementById("contactPopup").style.display = "none";
   }
 </script>
 
