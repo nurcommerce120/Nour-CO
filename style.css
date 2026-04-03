@@ -443,9 +443,23 @@ select{
 }
 
 .stock-count{
-  margin:8px 0 8px;
+  margin:8px 0 14px;
   font-weight:700;
   color:#111;
+}
+
+.payment-box{
+  max-width:700px;
+  margin:0 auto;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:22px;
+  background:#fff;
+  box-shadow:0 8px 20px rgba(0,0,0,.04);
+}
+
+.payment-note{
+  margin:8px 0 12px;
 }
 
 .delivery-price{
