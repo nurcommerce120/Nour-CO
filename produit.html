@@ -40,6 +40,8 @@
       <span class="badge" id="productBadge">Collection Khalifa</span>
       <h2 id="pName"></h2>
       <p class="price big" id="pPrice"></p>
+      <p class="stock-count" id="stockText"></p>
+      <p class="delivery-price" id="deliveryPriceText"></p>
       <p class="desc" id="pDesc"></p>
 
       <div class="row">
@@ -59,8 +61,13 @@
 
       <h3>Livraison</h3>
 
+      <p class="shipping-note">
+        📍 Remise en main propre possible dans le 93. <br>
+        🚚 En dehors du 93, livraison possible via Mondial Relay ou Colissimo, aux frais du client.
+      </p>
+
       <form class="delivery"
-            action="https://script.google.com/macros/s/AKfycby5G3muha7gBsRbgNquD99abO1a6oKtCtJTr9_6zeGtdXF1qct1hL7wG1_XTkVJ67zt9A/exec"
+            action="https://script.google.com/macros/s/AKfycbz3waGuYXkZLR_hb19oZvNcczXNZKhYgQLbiatm5X3u0IOn2WRongBy0wp_d2zF2SeqQw/exec"
             method="POST"
             target="_blank"
             onsubmit="return beforeSendOrder()">
@@ -110,12 +117,12 @@
           <input type="hidden" name="custom" id="ppOrderRef2">
 
           <button class="btn paypal" type="submit">
-            Payer avec PayPal
+            Acheter maintenant avec PayPal
           </button>
         </form>
 
         <button class="btn revolut" onclick="payRevolut()">
-          Payer avec Revolut
+          Acheter maintenant avec Revolut
         </button>
 
         <p class="muted">
@@ -149,6 +156,8 @@
     "veste-noire": {
       name: "Veste noire — Khalifa",
       price: 55,
+      deliveryPrice: 5,
+      stock: 3,
       desc: "Veste noire sobre et moderne de la collection Khalifa.",
       images: ["images/veste-noire.png","images/veste-noire.png","images/veste-noire.png"],
       type: "vetement",
@@ -157,6 +166,8 @@
     "veste-grise": {
       name: "Veste grise — Khalifa",
       price: 55,
+      deliveryPrice: 5,
+      stock: 3,
       desc: "Veste grise minimaliste au style urbain.",
       images: ["images/veste-grise.png","images/veste-grise.png","images/veste-grise.png"],
       type: "vetement",
@@ -165,6 +176,8 @@
     "veste-violette": {
       name: "Veste violette — Khalifa",
       price: 55,
+      deliveryPrice: 5,
+      stock: 2,
       desc: "Veste violette au rendu premium et affirmé.",
       images: ["images/veste-violette.png","images/veste-violette.png","images/veste-violette.png"],
       type: "vetement",
@@ -173,6 +186,8 @@
     "pantalon-noir": {
       name: "Pantalon noir — Khalifa",
       price: 45,
+      deliveryPrice: 5,
+      stock: 4,
       desc: "Pantalon noir confortable, sobre et facile à porter.",
       images: ["images/pantalon-noir.png","images/pantalon-noir.png","images/pantalon-noir.png"],
       type: "vetement",
@@ -181,6 +196,8 @@
     "pantalon-gris": {
       name: "Pantalon gris — Khalifa",
       price: 45,
+      deliveryPrice: 5,
+      stock: 4,
       desc: "Pantalon gris moderne à la coupe clean.",
       images: ["images/pantalon-gris.png","images/pantalon-gris.png","images/pantalon-gris.png"],
       type: "vetement",
@@ -189,6 +206,8 @@
     "pantalon-violet": {
       name: "Pantalon violet — Khalifa",
       price: 45,
+      deliveryPrice: 5,
+      stock: 2,
       desc: "Pantalon violet streetwear, moderne et confortable.",
       images: ["images/pantalon-violet.png","images/pantalon-violet.png","images/pantalon-violet.png"],
       type: "vetement",
@@ -197,6 +216,8 @@
     "tapis-bordeaux": {
       name: "Tapis bordeaux",
       price: 20,
+      deliveryPrice: 5,
+      stock: 2,
       desc: "Tapis bordeaux pratique, confortable et élégant, idéal pour un usage utilitaire.",
       images: ["images/tapis-bordeaux.png","images/tapis-bordeaux.png","images/tapis-bordeaux.png"],
       type: "utilitaire",
@@ -227,6 +248,8 @@
   document.getElementById("pPrice").innerText = p.price + " €";
   document.getElementById("pDesc").innerText = p.desc;
   document.getElementById("productBadge").innerText = p.badge;
+  document.getElementById("stockText").innerText = "Stock restant : " + p.stock;
+  document.getElementById("deliveryPriceText").innerText = "Livraison : +" + p.deliveryPrice + " €";
 
   const optionLabel = document.getElementById("optionLabel");
   const sizeSelect = document.getElementById("size");
@@ -248,8 +271,9 @@
     `;
   }
 
-  document.getElementById("ppItem").value = p.name;
+  document.getElementById("ppItem").value = p.name + " - " + ORDER_REF;
   document.getElementById("ppAmount").value = p.price;
+
   document.getElementById("orderRefText").innerText = ORDER_REF;
   document.getElementById("orderRefText2").innerText = ORDER_REF;
 
@@ -283,6 +307,7 @@
     document.getElementById("orderPrice").value = document.getElementById("pPrice").innerText;
     document.getElementById("orderSize").value = document.getElementById("size").value;
     document.getElementById("orderRef").value = ORDER_REF;
+
     document.getElementById("ppOrderRef").value = ORDER_REF;
     document.getElementById("ppOrderRef2").value = ORDER_REF;
   }
