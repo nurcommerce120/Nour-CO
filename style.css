@@ -432,6 +432,12 @@ select{
   gap:10px;
 }
 
+.stock-count{
+  margin:8px 0 14px;
+  font-weight:700;
+  color:#111;
+}
+
 .cash{
   margin-top:12px;
   padding:10px;
