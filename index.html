@@ -2,67 +2,269 @@
 <html lang="fr">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-W9DEFRPRFW"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W9DEFRPRFW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-W9DEFRPRFW');
+  </script>
 
-gtag('config', 'G-W9DEFRPRFW');
-</script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nour Commerce</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 <body>
 
-<header class="header">
-  <div class="brand">
-    <img src="images/logo-nour-commerce.png" alt="Logo Nour Commerce" class="logo">
-    <div class="brand-text">
-      <h1>Nour Commerce</h1>
-      <p>Collection Khalifa</p>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="brand">
+      <img src="images/logo-nour-commerce.png" alt="Logo Nour Commerce" class="logo">
+      <div class="brand-text">
+        <h1>Nour Commerce</h1>
+        <p>Collection Khalifa</p>
+      </div>
     </div>
-  </div>
 
-  <nav class="nav">
-    <a href="index.html" class="active">Accueil</a>
-    <a href="catalogue.html">Produits</a>
-    <a href="suivi.html">Suivi</a>
-    <a href="#" onclick="openContact()">Contact</a>
-  </nav>
-</header>
+    <nav class="nav">
+      <a href="index.html" class="active">Accueil</a>
+      <a href="catalogue.html">Produits</a>
+      <a href="suivi.html">Suivi</a>
+      <a href="#" onclick="openContact()">Contact</a>
+    </nav>
+  </header>
 
-<section class="hero">
-  <div class="hero-overlay">
-    <div class="hero-content">
-      <span class="hero-tag">Nour Commerce</span>
-      <h2 class="site-title">Nouvelle collection</h2>
-      <p class="hero-collection">Collection Khalifa</p>
-      <p class="hero-description">
-        Une sélection streetwear sobre, moderne et premium.
+  <!-- HERO PRINCIPAL -->
+  <section class="hero-home">
+    <div class="hero-home-overlay"></div>
+
+    <div class="hero-home-content">
+      <span class="hero-home-tag">Nour Commerce</span>
+
+      <h1 class="hero-home-title">
+        Nouvelle<br>collection
+      </h1>
+
+      <p class="hero-home-text">
+        Découvrez la collection Khalifa : des pièces streetwear sobres,
+        modernes et premium, pensées pour le quotidien.
       </p>
-      <a class="btn primary" href="catalogue.html">Découvrir la collection</a>
-    </div>
-  </div>
-</section>
 
-<div id="contactPopup" class="popup" onclick="closeContact()">
-  <div class="popup-content" onclick="event.stopPropagation()">
-    <button class="popup-close" onclick="closeContact()">×</button>
-    <h2>Contact</h2>
-    <p>Email : <strong>nur.commerce120@gmail.com</strong></p>
-    <p>Téléphone : <strong>06 28 49 84 93</strong></p>
+      <div class="hero-home-actions">
+        <a href="catalogue.html" class="btn primary">Découvrir la collection</a>
+        <a href="#produits-populaires" class="btn ghost-light">Voir les produits</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUITS POPULAIRES -->
+  <section class="hero-showcase" id="produits-populaires">
+    <div class="hero-dark-layer"></div>
+
+    <div class="hero-left">
+  <span class="hero-pill" id="heroCategory">Collection Khalifa</span>
+  <h2 class="hero-main-title" id="heroProductTitle">Veste noire</h2>
+  <p class="hero-main-text" id="heroProductDesc">
+    Veste noire sobre et moderne de la collection Khalifa.
+  </p>
+
+  <div class="hero-actions">
+    <a href="produit.html?item=veste-noire" class="btn primary" id="heroProductBtn">
+      Voir le produit
+    </a>
   </div>
 </div>
 
-<footer class="footer">
-  <p>© 2026 Nour Commerce — Tous droits réservés</p>
-</footer>
+    <div class="hero-right">
+      <button class="hero-arrow" onclick="prevSlide()">‹</button>
 
-<script>
+      <div class="hero-cards" id="slider">
+
+  <a class="hero-card active"
+     href="produit.html?item=veste-noire"
+     data-name="Veste noire"
+     data-desc="Veste noire sobre et moderne de la collection Khalifa."
+     data-category="Collection Khalifa"
+     data-link="produit.html?item=veste-noire">
+    <img src="images/veste-noire.png" alt="Veste noire Khalifa">
+    <div class="hero-card-info">
+      <span>COLLECTION KHALIFA</span>
+    </div>
+  </a>
+
+  <a class="hero-card"
+     href="produit.html?item=pantalon-noir"
+     data-name="Pantalon noir"
+     data-desc="Pantalon noir confortable, sobre et facile à porter au quotidien."
+     data-category="Collection Khalifa"
+     data-link="produit.html?item=pantalon-noir">
+    <img src="images/pantalon-noir.png" alt="Pantalon noir Khalifa">
+    <div class="hero-card-info">
+      <span>COLLECTION KHALIFA</span>
+    </div>
+  </a>
+
+  <a class="hero-card"
+     href="produit.html?item=tapis-bordeaux"
+     data-name="Tapis bordeaux"
+     data-desc="Tapis bordeaux pratique, confortable et élégant, idéal pour un usage utilitaire."
+     data-category="Utilitaire"
+     data-link="produit.html?item=tapis-bordeaux">
+    <img src="images/tapis-bordeaux.png" alt="Tapis bordeaux">
+    <div class="hero-card-info">
+      <span>UTILITAIRE</span>
+    </div>
+  </a>
+
+</div>
+
+      <button class="hero-arrow" onclick="nextSlide()">›</button>
+    </div>
+  </section>
+
+  <!-- CONFIANCE -->
+  <section class="trust-section">
+    <div class="trust-container">
+      <div class="trust-item">
+        <h3>Livraison rapide</h3>
+        <p>Expédition en 3 à 5 jours ouvrés selon la commande.</p>
+      </div>
+
+      <div class="trust-item">
+        <h3>Paiement sécurisé</h3>
+        <p>Paiement via PayPal, carte bancaire ou Revolut.</p>
+      </div>
+
+      <div class="trust-item">
+        <h3>Qualité premium</h3>
+        <p>Des produits sélectionnés avec soin et vérifiés avant envoi.</p>
+      </div>
+
+      <div class="trust-item">
+        <h3>Support client</h3>
+        <p>Une réponse rapide pour toute question avant ou après achat.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- A PROPOS -->
+  <section class="about-section">
+    <div class="about-container">
+      <h2>À propos</h2>
+      <p>
+        Nour Commerce propose une sélection de produits streetwear et utilitaires
+        au style sobre, moderne et soigné. La collection Khalifa met en avant une
+        identité visuelle simple, élégante et pensée pour tous les jours.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="faq-container">
+      <h2>FAQ</h2>
+
+      <div class="faq-item">
+        <h4>Quels sont les délais de livraison ?</h4>
+        <p>Les commandes sont généralement expédiées sous 3 à 5 jours ouvrés.</p>
+      </div>
+
+      <div class="faq-item">
+        <h4>Quels moyens de paiement acceptez-vous ?</h4>
+        <p>Vous pouvez payer par PayPal, carte bancaire ou Revolut. Le paiement en espèces est possible uniquement lors d’une remise en main propre dans le 93.</p>
+      </div>
+
+      <div class="faq-item">
+        <h4>Puis-je suivre ma commande ?</h4>
+        <p>Oui. Une référence de commande vous est fournie afin de suivre l’avancement de votre commande sur la page “Suivi”.</p>
+      </div>
+
+      <div class="faq-item">
+        <h4>Les frais de livraison sont-ils inclus ?</h4>
+        <p>Non. Les frais de livraison ne sont pas inclus dans le prix affiché et sont ajoutés selon le mode d’envoi choisi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPUP CONTACT -->
+  <div id="contactPopup" class="popup" onclick="closeContact()">
+    <div class="popup-content" onclick="event.stopPropagation()">
+      <button class="popup-close" onclick="closeContact()">×</button>
+      <h2>Contact</h2>
+      <p>Email : <strong>nur.commerce120@gmail.com</strong></p>
+      <p>Téléphone : <strong>06 28 49 84 93</strong></p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 Nour Commerce — Tous droits réservés</p>
+  </footer>
+
+  <!-- SCRIPT -->
+ <script>
+  let index = 0;
+  const cards = document.querySelectorAll(".hero-card");
+
+  const heroCategory = document.getElementById("heroCategory");
+  const heroProductTitle = document.getElementById("heroProductTitle");
+  const heroProductDesc = document.getElementById("heroProductDesc");
+  const heroProductBtn = document.getElementById("heroProductBtn");
+  const slider = document.getElementById("slider");
+
+  let autoSlide;
+
+  function updateSlider() {
+    cards.forEach((card) => card.classList.remove("active"));
+
+    const activeCard = cards[index];
+    activeCard.classList.add("active");
+
+    heroCategory.innerText = activeCard.dataset.category;
+    heroProductTitle.innerText = activeCard.dataset.name;
+    heroProductDesc.innerText = activeCard.dataset.desc;
+    heroProductBtn.href = activeCard.dataset.link;
+  }
+
+  function nextSlide() {
+  index = (index + 1) % cards.length;
+  updateSlider();
+  startAutoSlide();
+}
+
+function prevSlide() {
+  index = (index - 1 + cards.length) % cards.length;
+  updateSlider();
+  startAutoSlide();
+}
+
+  function startAutoSlide() {
+    stopAutoSlide();
+    autoSlide = setInterval(() => {
+      nextSlide();
+    }, 3000);
+  }
+
+  function stopAutoSlide() {
+    clearInterval(autoSlide);
+  }
+
+  cards.forEach((card, i) => {
+    card.addEventListener("mouseenter", () => {
+      if (index !== i) {
+        index = i;
+        updateSlider();
+      }
+    });
+  });
+
+  if (slider) {
+    slider.addEventListener("mouseenter", stopAutoSlide);
+    slider.addEventListener("mouseleave", startAutoSlide);
+  }
+
   function openContact() {
     document.getElementById("contactPopup").style.display = "flex";
   }
@@ -70,6 +272,9 @@ gtag('config', 'G-W9DEFRPRFW');
   function closeContact() {
     document.getElementById("contactPopup").style.display = "none";
   }
+
+  updateSlider();
+  startAutoSlide();
 </script>
 
 </body>
