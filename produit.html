@@ -2,17 +2,17 @@
 <html lang="fr">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-W9DEFRPRFW"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W9DEFRPRFW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-W9DEFRPRFW');
+  </script>
 
-gtag('config', 'G-W9DEFRPRFW');
-</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Produit — Nour Commerce</title>
+  <title>Produit — R.A.Y.B</title>
   <link rel="stylesheet" href="style.css"/>
   <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
@@ -20,10 +20,10 @@ gtag('config', 'G-W9DEFRPRFW');
 
 <header class="header">
   <div class="brand">
-    <img src="images/logo-nour-commerce.png" alt="Logo Nour Commerce" class="logo">
+    <img src="images/logo-rayb-header.png" alt="Logo R.A.Y.B" class="logo">
     <div class="brand-text">
-      <h1>Nour Commerce</h1>
-      <p>Collection Khalifa</p>
+      <h1>R.A.Y.B</h1>
+      <p>Streetwear Collection</p>
     </div>
   </div>
 
@@ -46,7 +46,7 @@ gtag('config', 'G-W9DEFRPRFW');
     </div>
 
     <div class="product-info">
-      <span class="badge" id="productBadge">Collection Khalifa</span>
+      <span class="badge" id="productBadge">Streetwear Collection</span>
       <h2 id="pName"></h2>
       <p class="price big" id="pPrice"></p>
       <p class="stock-count" id="stockText"></p>
@@ -65,7 +65,7 @@ gtag('config', 'G-W9DEFRPRFW');
 
       <p class="shipping-note">
         📍 Remise en main propre possible dans le 93.<br>
-        🚚 En dehors du 93, envoi possible via Mondial Relay ou Colissimo, aux frais du client.<br>
+        🚚 En dehors du 93, envoi possible via Mondial Relay, aux frais du client.<br>
         <strong>Les frais de livraison ne sont pas inclus dans le prix affiché.</strong>
       </p>
 
@@ -80,6 +80,17 @@ gtag('config', 'G-W9DEFRPRFW');
 
         <input id="phone" placeholder="Téléphone" required>
         <input id="email" type="email" placeholder="Adresse e-mail" required>
+
+        <div class="shipping-choice">
+          <label class="shipping-check">
+            <input type="checkbox" id="outside93">
+            J’habite en dehors du 93 — ajouter 4,10 € de livraison Mondial Relay
+          </label>
+
+          <p class="muted shipping-extra" id="shippingText">
+            Livraison Mondial Relay : 4,10 €
+          </p>
+        </div>
 
         <button class="btn primary" type="submit">
           Continuer vers le paiement
@@ -103,75 +114,77 @@ gtag('config', 'G-W9DEFRPRFW');
 </div>
 
 <footer class="footer">
-  <p>© 2026 Nour Commerce — Tous droits réservés</p>
+  <p>© 2026 R.A.Y.B — Tous droits réservés</p>
 </footer>
 
 <script>
   const products = {
     "veste-noire": {
-      name: "Veste noire — Khalifa",
+      name: "Veste noire",
       price: 55,
       stock: 3,
-      desc: "Veste noire sobre et moderne de la collection Khalifa.",
-      images: ["images/veste-noire.png","images/veste-noire.png","images/veste-noire.png"],
+      desc: "Veste noire sobre et moderne, pensée pour un style quotidien net et affirmé.",
+      images: ["images/veste-noire.png", "images/veste-noire.png", "images/veste-noire.png"],
       type: "vetement",
-      badge: "Collection Khalifa"
+      badge: "Streetwear Collection"
     },
     "veste-grise": {
-      name: "Veste grise — Khalifa",
+      name: "Veste grise",
       price: 55,
       stock: 3,
-      desc: "Veste grise minimaliste au style urbain.",
-      images: ["images/veste-grise.png","images/veste-grise.png","images/veste-grise.png"],
+      desc: "Veste grise minimaliste au style urbain, conçue pour un rendu propre et moderne.",
+      images: ["images/veste-grise.png", "images/veste-grise.png", "images/veste-grise.png"],
       type: "vetement",
-      badge: "Collection Khalifa"
+      badge: "Streetwear Collection"
     },
     "veste-violette": {
-      name: "Veste violette — Khalifa",
+      name: "Veste violette",
       price: 55,
       stock: 2,
-      desc: "Veste violette au rendu premium et affirmé.",
-      images: ["images/veste-violette.png","images/veste-violette.png","images/veste-violette.png"],
+      desc: "Veste violette au rendu premium et affirmé, idéale pour une silhouette moderne.",
+      images: ["images/veste-violette.png", "images/veste-violette.png", "images/veste-violette.png"],
       type: "vetement",
-      badge: "Collection Khalifa"
+      badge: "Streetwear Collection"
     },
     "pantalon-noir": {
-      name: "Pantalon noir — Khalifa",
+      name: "Pantalon noir",
       price: 45,
       stock: 4,
-      desc: "Pantalon noir confortable, sobre et facile à porter.",
-      images: ["images/pantalon-noir.png","images/pantalon-noir.png","images/pantalon-noir.png"],
+      desc: "Pantalon noir confortable et structuré, parfait pour un look minimaliste et moderne.",
+      images: ["images/pantalon-noir.png", "images/pantalon-noir.png", "images/pantalon-noir.png"],
       type: "vetement",
-      badge: "Collection Khalifa"
+      badge: "Streetwear Collection"
     },
     "pantalon-gris": {
-      name: "Pantalon gris — Khalifa",
+      name: "Pantalon gris",
       price: 45,
       stock: 4,
-      desc: "Pantalon gris moderne à la coupe clean.",
-      images: ["images/pantalon-gris.png","images/pantalon-gris.png","images/pantalon-gris.png"],
+      desc: "Pantalon gris moderne à la coupe clean, pensé pour le quotidien.",
+      images: ["images/pantalon-gris.png", "images/pantalon-gris.png", "images/pantalon-gris.png"],
       type: "vetement",
-      badge: "Collection Khalifa"
+      badge: "Streetwear Collection"
     },
     "pantalon-violet": {
-      name: "Pantalon violet — Khalifa",
+      name: "Pantalon violet",
       price: 45,
       stock: 2,
-      desc: "Pantalon violet streetwear, moderne et confortable.",
-      images: ["images/pantalon-violet.png","images/pantalon-violet.png","images/pantalon-violet.png"],
+      desc: "Pantalon violet streetwear, moderne et confortable, avec une identité plus marquée.",
+      images: ["images/pantalon-violet.png", "images/pantalon-violet.png", "images/pantalon-violet.png"],
       type: "vetement",
-      badge: "Collection Khalifa"
+      badge: "Streetwear Collection"
     },
     "tapis-bordeaux": {
       name: "Tapis bordeaux",
       price: 20,
       stock: 2,
-      desc: "Tapis bordeaux pratique, confortable et élégant, idéal pour un usage utilitaire.",
-      images: ["images/tapis-bordeaux.png","images/tapis-bordeaux.png","images/tapis-bordeaux.png"],
+      desc: "Tapis bordeaux pratique et élégant, conçu pour un usage utilitaire simple et efficace.",
+      images: ["images/tapis-bordeaux.png", "images/tapis-bordeaux.png", "images/tapis-bordeaux.png"],
       type: "utilitaire",
       badge: "Utilitaire"
     }
   };
+
+  const SHIPPING_PRICE = 4.10;
 
   function generateOrderRef() {
     const d = new Date();
@@ -192,8 +205,10 @@ gtag('config', 'G-W9DEFRPRFW');
     window.location.href = "catalogue.html";
   }
 
+  let finalPrice = p.price;
+
   document.getElementById("pName").innerText = p.name;
-  document.getElementById("pPrice").innerText = p.price + " €";
+  document.getElementById("pPrice").innerText = p.price.toFixed(2) + " €";
   document.getElementById("pDesc").innerText = p.desc;
   document.getElementById("productBadge").innerText = p.badge;
   document.getElementById("stockText").innerText = "Stock restant : " + p.stock;
@@ -231,6 +246,24 @@ gtag('config', 'G-W9DEFRPRFW');
   });
   document.getElementById("mainImg").src = p.images[0];
 
+  const checkbox = document.getElementById("outside93");
+  const priceDisplay = document.getElementById("pPrice");
+  const shippingText = document.getElementById("shippingText");
+
+  shippingText.innerText = "Livraison Mondial Relay : 4,10 €";
+
+  checkbox.addEventListener("change", () => {
+    if (checkbox.checked) {
+      finalPrice = p.price + SHIPPING_PRICE;
+      shippingText.innerText = "Livraison ajoutée : +4,10 €";
+    } else {
+      finalPrice = p.price;
+      shippingText.innerText = "Livraison Mondial Relay : 4,10 €";
+    }
+
+    priceDisplay.innerText = finalPrice.toFixed(2) + " €";
+  });
+
   function goToPayment(event) {
     event.preventDefault();
 
@@ -244,7 +277,9 @@ gtag('config', 'G-W9DEFRPRFW');
       reference: ORDER_REF,
       item: item,
       productName: p.name,
-      price: p.price,
+      price: finalPrice,
+      shippingIncluded: checkbox.checked,
+      shippingPrice: checkbox.checked ? SHIPPING_PRICE : 0,
       option: option,
       nom: document.getElementById("fullname").value.trim(),
       adresse: document.getElementById("address").value.trim(),
