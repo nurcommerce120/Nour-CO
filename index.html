@@ -16,17 +16,14 @@
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="images/favicon.png">
 
-  <!-- Polices -->
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- HEADER -->
   <header class="header">
     <div class="brand">
       <img src="images/logo-rayb-header.png" alt="Logo R.A.Y.B" class="logo">
       <div class="brand-text">
-        <h1>R.A.Y.B</h1>
         <p>Streetwear Collection</p>
       </div>
     </div>
@@ -39,11 +36,9 @@
     </nav>
   </header>
 
-  <!-- HERO PRINCIPAL -->
   <section class="hero-home">
     <div class="hero-home-overlay"></div>
 
-    <!-- mots d'ambiance -->
     <div class="hero-words">
       <span>Sobre</span>
       <span>Efficace</span>
@@ -56,9 +51,11 @@
     </div>
 
     <div class="hero-home-content">
-      <h1 class="hero-home-title">
-        L’essence du style streetwear
-      </h1>
+<span class="hero-brand">R.A.Y.B</span>
+
+<h1 class="hero-home-title">
+  L’essence du style streetwear
+</h1>
 
       <p class="hero-home-text">
         R.A.Y.B propose un univers sobre, moderne et premium, à travers des pièces pensées pour le quotidien.
@@ -71,72 +68,72 @@
     </div>
   </section>
 
-  <!-- PRODUITS POPULAIRES -->
   <section class="hero-showcase" id="produits-populaires">
     <div class="hero-dark-layer"></div>
 
-    <div class="hero-left">
-      <span class="hero-pill" id="heroCategory">Streetwear Collection</span>
-      <h2 class="hero-main-title" id="heroProductTitle">Veste noire</h2>
-      <p class="hero-main-text" id="heroProductDesc">
-        Veste noire sobre et moderne, pensée pour un style quotidien net et affirmé.
-      </p>
+    <div class="hero-showcase-inner">
+      <div class="hero-left">
+        <span class="hero-pill" id="heroCategory">Streetwear Collection</span>
+        <h2 class="hero-main-title" id="heroProductTitle">Veste noire</h2>
+        <p class="hero-main-text" id="heroProductDesc">
+          Veste noire sobre et moderne, pensée pour un style quotidien net et affirmé.
+        </p>
 
-      <div class="hero-actions">
-        <a href="produit.html?item=veste-noire" class="btn primary" id="heroProductBtn">
-          Voir le produit
-        </a>
-      </div>
-    </div>
-
-    <div class="hero-right">
-      <button class="hero-arrow" onclick="prevSlide()">‹</button>
-
-      <div class="hero-cards" id="slider">
-
-        <a class="hero-card active"
-           href="produit.html?item=veste-noire"
-           data-name="Veste noire"
-           data-desc="Veste noire sobre et moderne, pensée pour un style quotidien net et affirmé."
-           data-category="Streetwear Collection"
-           data-link="produit.html?item=veste-noire">
-          <img src="images/veste-noire.png" alt="Veste noire">
-          <div class="hero-card-info">
-            <span>STREETWEAR COLLECTION</span>
-          </div>
-        </a>
-
-        <a class="hero-card"
-           href="produit.html?item=pantalon-noir"
-           data-name="Pantalon noir"
-           data-desc="Pantalon noir confortable et structuré, idéal pour un look minimaliste et moderne."
-           data-category="Streetwear Collection"
-           data-link="produit.html?item=pantalon-noir">
-          <img src="images/pantalon-noir.png" alt="Pantalon noir">
-          <div class="hero-card-info">
-            <span>STREETWEAR COLLECTION</span>
-          </div>
-        </a>
-
-        <a class="hero-card"
-           href="produit.html?item=tapis-bordeaux"
-           data-name="Tapis bordeaux"
-           data-desc="Tapis bordeaux pratique et élégant, conçu pour un usage utilitaire simple et efficace."
-           data-category="Utilitaire"
-           data-link="produit.html?item=tapis-bordeaux">
-          <img src="images/tapis-bordeaux.png" alt="Tapis bordeaux">
-          <div class="hero-card-info">
-            <span>UTILITAIRE</span>
-          </div>
-        </a>
-
+        <div class="hero-actions">
+          <a href="produit.html?item=veste-noire" class="btn primary" id="heroProductBtn">
+            Voir le produit
+          </a>
+        </div>
       </div>
 
-      <button class="hero-arrow" onclick="nextSlide()">›</button>
+      <div class="hero-right">
+        <button class="hero-arrow hero-arrow-left" type="button" onclick="prevSlide()">‹</button>
+
+        <div class="hero-cards-wrap">
+          <div class="hero-cards" id="slider">
+            <a class="hero-card active"
+               href="produit.html?item=veste-noire"
+               data-name="Veste noire"
+               data-desc="Veste noire sobre et moderne, pensée pour un style quotidien net et affirmé."
+               data-category="Streetwear Collection"
+               data-link="produit.html?item=veste-noire">
+              <img src="images/veste-noire.png" alt="Veste noire">
+              <div class="hero-card-info">
+                <span>STREETWEAR COLLECTION</span>
+              </div>
+            </a>
+
+            <a class="hero-card"
+               href="produit.html?item=pantalon-noir"
+               data-name="Pantalon noir"
+               data-desc="Pantalon noir confortable et structuré, idéal pour un look minimaliste et moderne."
+               data-category="Streetwear Collection"
+               data-link="produit.html?item=pantalon-noir">
+              <img src="images/pantalon-noir.png" alt="Pantalon noir">
+              <div class="hero-card-info">
+                <span>STREETWEAR COLLECTION</span>
+              </div>
+            </a>
+
+            <a class="hero-card"
+               href="produit.html?item=tapis-bordeaux"
+               data-name="Tapis bordeaux"
+               data-desc="Tapis bordeaux pratique et élégant, conçu pour un usage utilitaire simple et efficace."
+               data-category="Utilitaire"
+               data-link="produit.html?item=tapis-bordeaux">
+              <img src="images/tapis-bordeaux.png" alt="Tapis bordeaux">
+              <div class="hero-card-info">
+                <span>UTILITAIRE</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <button class="hero-arrow hero-arrow-right" type="button" onclick="nextSlide()">›</button>
+      </div>
     </div>
   </section>
 
-  <!-- CONFIANCE -->
   <section class="trust-section">
     <div class="trust-container">
       <div class="trust-item">
@@ -161,7 +158,6 @@
     </div>
   </section>
 
-  <!-- A PROPOS -->
   <section class="about-section">
     <div class="about-container">
       <h2>À propos</h2>
@@ -171,7 +167,6 @@
     </div>
   </section>
 
-  <!-- FAQ -->
   <section class="faq-section">
     <div class="faq-container">
       <h2>FAQ</h2>
@@ -198,7 +193,6 @@
     </div>
   </section>
 
-  <!-- POPUP CONTACT -->
   <div id="contactPopup" class="popup" onclick="closeContact()">
     <div class="popup-content" onclick="event.stopPropagation()">
       <button class="popup-close" onclick="closeContact()">×</button>
@@ -208,12 +202,10 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <p>© 2026 R.A.Y.B — Tous droits réservés</p>
   </footer>
 
-  <!-- SCRIPT -->
   <script>
     let index = 0;
     const cards = document.querySelectorAll(".hero-card");
