@@ -347,46 +347,48 @@ body{
 }
 
 .hero-right{
-  position:relative;
-  min-width:0;
-  width:100%;
-  padding:0 58px;
-  display:flex;
-  align-items:center;
+  position: relative;
+  min-width: 0;
+  width: 100%;
+  padding: 0 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-cards-wrap{
-  width:100%;
-  overflow:hidden;
-  padding:10px 6px;
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
 }
 
 .hero-cards{
-  display:flex;
-  gap:14px;
-  align-items:flex-end;
-  justify-content:flex-start;
-  width:100%;
-  max-width:700px;
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+  max-width: 660px;
 }
 
 .hero-card{
-  width:calc((100% - 28px) / 3);
-  max-width:210px;
-  min-width:170px;
-  min-height:400px;
-  background:rgba(255,255,255,.10);
-  border:1px solid rgba(255,255,255,.18);
-  border-radius:22px;
-  overflow:hidden;
-  cursor:pointer;
-  transition:transform .25s ease, opacity .25s ease, box-shadow .25s ease;
-  opacity:.82;
-  box-shadow:0 12px 28px rgba(0,0,0,.16);
-  backdrop-filter:blur(10px);
-  flex-shrink:0;
-  text-decoration:none;
-  position:relative;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 200px;
+  min-height: 390px;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 22px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .25s ease, opacity .25s ease, box-shadow .25s ease;
+  opacity: .82;
+  box-shadow: 0 12px 28px rgba(0,0,0,.16);
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  position: relative;
 }
 
 .hero-card.active{
@@ -396,12 +398,12 @@ body{
 }
 
 .hero-card img{
-  width:100%;
-  height:220px;
-  object-fit:contain;
-  background:#fff;
-  display:block;
-  padding:16px;
+  width: 100%;
+  height: 210px;
+  object-fit: contain;
+  background: #fff;
+  display: block;
+  padding: 14px;
 }
 
 .hero-card-info{
@@ -747,6 +749,9 @@ select{
   border:1px solid var(--border);
   border-radius:12px;
   background:#fafafa;
+  width:100%;
+  max-width:100%;
+  overflow:hidden;
 }
 
 .shipping-check{
@@ -756,15 +761,32 @@ select{
   font-weight:600;
   line-height:1.5;
   cursor:pointer;
+  width:100%;
+  max-width:100%;
+  flex-wrap:wrap;
 }
 
 .shipping-check input{
   margin-top:3px;
+  flex:0 0 auto;
 }
 
 .shipping-extra{
   margin:8px 0 0 28px;
   font-size:14px;
+  width:calc(100% - 28px);
+  max-width:calc(100% - 28px);
+  overflow-wrap:break-word;
+  word-break:break-word;
+}
+
+.shipping-check span,
+.shipping-check label,
+.shipping-choice p,
+.shipping-choice div{
+  max-width:100%;
+  overflow-wrap:break-word;
+  word-break:break-word;
 }
 
 .payment-box{
@@ -977,6 +999,22 @@ select{
 .about-container,
 .faq-item{
   animation:fadeSoft .65s ease;
+}
+
+@media (max-width: 1280px){
+  .hero-cards{
+    max-width: 620px;
+    gap: 10px;
+  }
+
+  .hero-card{
+    max-width: 188px;
+    min-height: 370px;
+  }
+
+  .hero-card img{
+    height: 195px;
+  }
 }
 
 @keyframes fadeSoft{
