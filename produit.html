@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-W9DEFRPRFW"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -10,11 +9,24 @@
     gtag('config', 'G-W9DEFRPRFW');
   </script>
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Produit — R.A.Y.B</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="images/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    (function(){
+      var names = {
+        "veste-noire":"Veste noire","veste-grise":"Veste grise","veste-violette":"Veste violette",
+        "pantalon-noir":"Pantalon noir","pantalon-gris":"Pantalon gris","pantalon-violet":"Pantalon violet",
+        "tapis-bordeaux":"Tapis bordeaux"
+      };
+      var item = new URLSearchParams(window.location.search).get("item");
+      if (item && names[item]) document.title = names[item] + " — R.A.Y.B";
+    })();
+  </script>
 </head>
 <body>
 
@@ -22,16 +34,18 @@
   <div class="brand">
     <img src="images/logo-rayb-header.png" alt="Logo R.A.Y.B" class="logo">
     <div class="brand-text">
-      <h1>R.A.Y.B</h1>
       <p>Streetwear Collection</p>
     </div>
   </div>
 
-  <nav class="nav">
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">&#9776;</button>
+
+  <nav class="nav" id="mainNav">
     <a href="index.html">Accueil</a>
     <a href="catalogue.html">Produits</a>
     <a href="suivi.html">Suivi</a>
     <a href="#" onclick="openContact()">Contact</a>
+    <a href="#" onclick="openCart()">Panier (<span class="cart-count">0</span>)</a>
   </nav>
 </header>
 
@@ -46,7 +60,7 @@
     </div>
 
     <div class="product-info">
-      <span class="badge" id="productBadge">Streetwear Collection</span>
+      <span class="badge" id="productBadge"></span>
       <h2 id="pName"></h2>
       <p class="price big" id="pPrice"></p>
       <p class="stock-count" id="stockText"></p>
@@ -57,250 +71,120 @@
         <select id="size"></select>
       </div>
 
-      <div class="orderref">
-        Référence commande : <strong id="orderRefText"></strong>
-      </div>
+      <button class="btn primary" type="button" onclick="addCurrentProductToCart()">
+        Ajouter au panier
+      </button>
 
-      <h3>Informations de livraison</h3>
-
-      <p class="shipping-note">
-        📍 Remise en main propre possible dans le 93.<br>
-        🚚 En dehors du 93, envoi possible via Mondial Relay, aux frais du client.<br>
-        <strong>Les frais de livraison ne sont pas inclus dans le prix affiché.</strong>
+      <p class="muted" style="margin-top:10px;">
+        Ajoutez plusieurs produits au panier puis payez en une seule fois.
       </p>
-
-      <form class="delivery" onsubmit="return goToPayment(event)">
-        <input id="fullname" placeholder="Nom et prénom" required>
-        <input id="address" placeholder="Adresse" required>
-
-        <div class="two">
-          <input id="city" placeholder="Ville" required>
-          <input id="postal" placeholder="Code postal" required>
-        </div>
-
-        <input id="phone" placeholder="Téléphone" required>
-        <input id="email" type="email" placeholder="Adresse e-mail" required>
-
-        <div class="shipping-choice">
-          <label class="shipping-check">
-            <input type="checkbox" id="outside93">
-            J’habite en dehors du 93 — ajouter 4,10 € de livraison Mondial Relay
-          </label>
-
-          <p class="muted shipping-extra" id="shippingText">
-            Livraison Mondial Relay : 4,10 €
-          </p>
-        </div>
-
-        <button class="btn primary" type="submit">
-          Continuer vers le paiement
-        </button>
-
-        <p class="muted" style="margin-top:10px;">
-          Vos informations seront conservées pour finaliser le paiement sur la page suivante.
-        </p>
-      </form>
     </div>
   </section>
 </main>
 
 <div id="contactPopup" class="popup" onclick="closeContact()">
   <div class="popup-content" onclick="event.stopPropagation()">
-    <button class="popup-close" onclick="closeContact()">×</button>
+    <button class="popup-close" onclick="closeContact()">&#215;</button>
     <h2>Contact</h2>
-    <p>Email : <p>Email : <strong><a href="mailto:contact@rayb.fr">contact@rayb.fr</a></strong></p>
+    <p>Email : <strong><a href="mailto:contact@rayb.fr">contact@rayb.fr</a></strong></p>
     <p>Téléphone : <strong>06 28 49 84 93</strong></p>
   </div>
 </div>
 
+<div id="cartOverlay" class="cart-overlay" onclick="closeCart()"></div>
+<aside id="cartDrawer" class="cart-drawer">
+  <div class="cart-header">
+    <h2>Panier</h2>
+    <button onclick="closeCart()">&#215;</button>
+  </div>
+  <div id="cartItems" class="cart-items"></div>
+  <div class="cart-footer">
+    <div class="cart-total-line">
+      <strong>Total</strong>
+      <strong id="cartTotal">0,00 €</strong>
+    </div>
+    <button class="btn primary cart-checkout" onclick="goToPayment()">Continuer vers le paiement</button>
+  </div>
+</aside>
+
 <footer class="footer">
-  <p>© 2026 R.A.Y.B — Tous droits réservés</p>
+  <div class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="catalogue.html">Catalogue</a>
+    <a href="suivi.html">Suivi commande</a>
+    <a href="mailto:contact@rayb.fr">contact@rayb.fr</a>
+  </div>
+  <p>© 2026 R.A.Y.B — Tous droits réservés · Livraison depuis le 93</p>
 </footer>
 
+<script src="cart.js"></script>
 <script>
   const products = {
-    "veste-noire": {
-      name: "Veste noire",
-      price: 55,
-      stock: 3,
-      desc: "Veste noire sobre et moderne, pensée pour un style quotidien net et affirmé.",
-      images: ["images/veste-noire.png", "images/veste-noire.png", "images/veste-noire.png"],
-      type: "vetement",
-      badge: "Streetwear Collection"
-    },
-    "veste-grise": {
-      name: "Veste grise",
-      price: 55,
-      stock: 3,
-      desc: "Veste grise minimaliste au style urbain, conçue pour un rendu propre et moderne.",
-      images: ["images/veste-grise.png", "images/veste-grise.png", "images/veste-grise.png"],
-      type: "vetement",
-      badge: "Streetwear Collection"
-    },
-    "veste-violette": {
-      name: "Veste violette",
-      price: 55,
-      stock: 2,
-      desc: "Veste violette au rendu premium et affirmé, idéale pour une silhouette moderne.",
-      images: ["images/veste-violette.png", "images/veste-violette.png", "images/veste-violette.png"],
-      type: "vetement",
-      badge: "Streetwear Collection"
-    },
-    "pantalon-noir": {
-      name: "Pantalon noir",
-      price: 45,
-      stock: 4,
-      desc: "Pantalon noir confortable et structuré, parfait pour un look minimaliste et moderne.",
-      images: ["images/pantalon-noir.png", "images/pantalon-noir.png", "images/pantalon-noir.png"],
-      type: "vetement",
-      badge: "Streetwear Collection"
-    },
-    "pantalon-gris": {
-      name: "Pantalon gris",
-      price: 45,
-      stock: 4,
-      desc: "Pantalon gris moderne à la coupe clean, pensé pour le quotidien.",
-      images: ["images/pantalon-gris.png", "images/pantalon-gris.png", "images/pantalon-gris.png"],
-      type: "vetement",
-      badge: "Streetwear Collection"
-    },
-    "pantalon-violet": {
-      name: "Pantalon violet",
-      price: 45,
-      stock: 2,
-      desc: "Pantalon violet streetwear, moderne et confortable, avec une identité plus marquée.",
-      images: ["images/pantalon-violet.png", "images/pantalon-violet.png", "images/pantalon-violet.png"],
-      type: "vetement",
-      badge: "Streetwear Collection"
-    },
-    "tapis-bordeaux": {
-      name: "Tapis bordeaux",
-      price: 20,
-      stock: 2,
-      desc: "Tapis bordeaux pratique et élégant, conçu pour un usage utilitaire simple et efficace.",
-      images: ["images/tapis-bordeaux.png", "images/tapis-bordeaux.png", "images/tapis-bordeaux.png"],
-      type: "utilitaire",
-      badge: "Utilitaire"
-    }
+    "veste-noire":    { name:"Veste noire",    price:34.90, stock:3, desc:"Veste noire sobre et moderne, pensée pour un style quotidien net et affirmé.", images:["images/veste-noire.png"], type:"vetement", badge:"Streetwear Collection", color:"Noir" },
+    "veste-grise":    { name:"Veste grise",    price:34.90, stock:3, desc:"Veste grise minimaliste au style urbain, conçue pour un rendu propre et moderne.", images:["images/veste-grise.png"], type:"vetement", badge:"Streetwear Collection", color:"Gris" },
+    "veste-violette": { name:"Veste violette", price:34.90, stock:2, desc:"Veste violette au rendu premium et affirmé, idéale pour une silhouette moderne.", images:["images/veste-violette.png"], type:"vetement", badge:"Streetwear Collection", color:"Violet" },
+    "pantalon-noir":  { name:"Pantalon noir",  price:29.90, stock:4, desc:"Pantalon noir confortable et structuré, parfait pour un look minimaliste et moderne.", images:["images/pantalon-noir.png"], type:"vetement", badge:"Streetwear Collection", color:"Noir" },
+    "pantalon-gris":  { name:"Pantalon gris",  price:29.90, stock:4, desc:"Pantalon gris moderne à la coupe clean, pensé pour le quotidien.", images:["images/pantalon-gris.png"], type:"vetement", badge:"Streetwear Collection", color:"Gris" },
+    "pantalon-violet":{ name:"Pantalon violet",price:29.90, stock:2, desc:"Pantalon violet streetwear, moderne et confortable, avec une identité plus marquée.", images:["images/pantalon-violet.png"], type:"vetement", badge:"Streetwear Collection", color:"Violet" },
+    "tapis-bordeaux": { name:"Tapis bordeaux", price:20,    stock:2, desc:"Tapis bordeaux pratique et élégant, conçu pour un usage utilitaire simple et efficace.", images:["images/tapis-bordeaux.png"], type:"utilitaire", badge:"Utilitaire", color:"Bordeaux" }
   };
 
-  const SHIPPING_PRICE = 4.10;
-
-  function generateOrderRef() {
-    const d = new Date();
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, "0");
-    const dd = String(d.getDate()).padStart(2, "0");
-    const rand = Math.random().toString(36).substring(2, 7).toUpperCase();
-    return `NC-${yyyy}${mm}${dd}-${rand}`;
-  }
-
-  const ORDER_REF = generateOrderRef();
   const params = new URLSearchParams(window.location.search);
   const item = params.get("item") || "veste-noire";
   const p = products[item];
 
   if (!p) {
-    alert("Produit introuvable.");
-    window.location.href = "catalogue.html";
-  }
-
-  let finalPrice = p.price;
-
-  document.getElementById("pName").innerText = p.name;
-  document.getElementById("pPrice").innerText = p.price.toFixed(2) + " €";
-  document.getElementById("pDesc").innerText = p.desc;
-  document.getElementById("productBadge").innerText = p.badge;
-  document.getElementById("stockText").innerText = "Stock restant : " + p.stock;
-  document.getElementById("orderRefText").innerText = ORDER_REF;
-
-  const optionLabel = document.getElementById("optionLabel");
-  const sizeSelect = document.getElementById("size");
-
-  if (p.type === "utilitaire") {
-    optionLabel.innerText = "Couleur";
-    sizeSelect.innerHTML = `
-      <option value="">Choisir</option>
-      <option value="Bordeaux">Bordeaux</option>
-    `;
+    showToast("Produit introuvable.", "error");
+    setTimeout(() => { window.location.href = "catalogue.html"; }, 1500);
   } else {
-    optionLabel.innerText = "Taille";
-    sizeSelect.innerHTML = `
-      <option value="">Choisir</option>
-      <option>S</option>
-      <option>M</option>
-      <option>L</option>
-      <option>XL</option>
-    `;
-  }
+    document.getElementById("pName").innerText = p.name;
+    document.getElementById("pPrice").innerText = p.price.toFixed(2).replace(".", ",") + " €";
+    document.getElementById("pDesc").innerText = p.desc;
+    document.getElementById("productBadge").innerText = p.badge;
+    document.getElementById("stockText").innerText = "Stock restant : " + p.stock;
 
-  const thumbs = document.getElementById("thumbs");
-  p.images.forEach((src) => {
-    const img = document.createElement("img");
-    img.src = src;
-    img.className = "thumb";
-    img.onclick = () => {
-      document.getElementById("mainImg").src = src;
-    };
-    thumbs.appendChild(img);
-  });
-  document.getElementById("mainImg").src = p.images[0];
+    const optionLabel = document.getElementById("optionLabel");
+    const sizeSelect = document.getElementById("size");
 
-  const checkbox = document.getElementById("outside93");
-  const priceDisplay = document.getElementById("pPrice");
-  const shippingText = document.getElementById("shippingText");
-
-  shippingText.innerText = "Livraison Mondial Relay : 4,10 €";
-
-  checkbox.addEventListener("change", () => {
-    if (checkbox.checked) {
-      finalPrice = p.price + SHIPPING_PRICE;
-      shippingText.innerText = "Livraison ajoutée : +4,10 €";
+    if (p.type === "utilitaire") {
+      optionLabel.innerText = "Couleur";
+      sizeSelect.innerHTML = '<option value="">Choisir</option><option value="Bordeaux">Bordeaux</option>';
     } else {
-      finalPrice = p.price;
-      shippingText.innerText = "Livraison Mondial Relay : 4,10 €";
+      optionLabel.innerText = "Taille";
+      sizeSelect.innerHTML = '<option value="">Choisir</option><option>S</option><option>M</option><option>L</option><option>XL</option>';
     }
 
-    priceDisplay.innerText = finalPrice.toFixed(2) + " €";
-  });
+    const thumbs = document.getElementById("thumbs");
+    p.images.forEach(src => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.className = "thumb";
+      img.onclick = () => document.getElementById("mainImg").src = src;
+      thumbs.appendChild(img);
+    });
 
-  function goToPayment(event) {
-    event.preventDefault();
+    document.getElementById("mainImg").src = p.images[0];
+  }
 
+  function addCurrentProductToCart() {
     const option = document.getElementById("size").value;
     if (!option) {
-      alert("Veuillez choisir une option.");
-      return false;
+      showToast("Veuillez choisir une option.", "error");
+      return;
     }
-
-    const draft = {
-      reference: ORDER_REF,
-      item: item,
-      productName: p.name,
-      price: finalPrice,
-      shippingIncluded: checkbox.checked,
-      shippingPrice: checkbox.checked ? SHIPPING_PRICE : 0,
-      option: option,
-      nom: document.getElementById("fullname").value.trim(),
-      adresse: document.getElementById("address").value.trim(),
-      ville: document.getElementById("city").value.trim(),
-      code_postal: document.getElementById("postal").value.trim(),
-      telephone: document.getElementById("phone").value.trim(),
-      email: document.getElementById("email").value.trim()
-    };
-
-    sessionStorage.setItem("nour_order_draft", JSON.stringify(draft));
-    window.location.href = "paiement.html?item=" + encodeURIComponent(item);
-    return false;
+    addToCart({
+      id: item,
+      name: p.name,
+      price: p.price,
+      image: p.images[0],
+      size: p.type === "vetement" ? option : "",
+      color: p.type === "utilitaire" ? option : p.color
+    });
   }
 
-  function openContact() {
-    document.getElementById("contactPopup").style.display = "flex";
-  }
-
-  function closeContact() {
-    document.getElementById("contactPopup").style.display = "none";
-  }
+  function openContact() { document.getElementById("contactPopup").style.display = "flex"; }
+  function closeContact() { document.getElementById("contactPopup").style.display = "none"; }
+  function toggleMenu() { document.getElementById("mainNav").classList.toggle("open"); }
 </script>
 
 </body>
