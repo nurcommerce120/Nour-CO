@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-W9DEFRPRFW"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -9,28 +8,33 @@
     gtag('js', new Date());
     gtag('config', 'G-W9DEFRPRFW');
   </script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catalogue — R.A.Y.B</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta name="description" content="Découvrez le catalogue R.A.Y.B : streetwear, vêtements et produits utilitaires.">
+  <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="images/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+
 
 <header class="header">
   <div class="brand">
     <img src="images/logo-rayb-header.png" alt="Logo R.A.Y.B" class="logo">
     <div class="brand-text">
-      <h1>R.A.Y.B</h1>
       <p>Streetwear Collection</p>
     </div>
   </div>
 
-  <nav class="nav">
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">&#9776;</button>
+
+  <nav class="nav" id="mainNav">
     <a href="index.html">Accueil</a>
     <a href="catalogue.html" class="active">Produits</a>
     <a href="suivi.html">Suivi</a>
     <a href="#" onclick="openContact()">Contact</a>
+    <a href="#" onclick="openCart()">Panier (<span class="cart-count">0</span>)</a>
   </nav>
 </header>
 
@@ -48,65 +52,73 @@
   <h3 id="vetements" class="section-title">Streetwear</h3>
 
   <section class="grid">
+
     <article class="card">
       <img src="images/veste-noire.png" alt="Veste noire">
       <div class="card-body">
-        <span class="badge">Collection Khalifa</span>
+        <span class="badge">Streetwear Collection</span>
         <h3>Veste noire</h3>
-        <p class="price">55 €</p>
+        <p class="price">34,90 €</p>
         <a class="btn" href="produit.html?item=veste-noire">Voir le produit</a>
+        
       </div>
     </article>
 
     <article class="card">
       <img src="images/veste-grise.png" alt="Veste grise">
       <div class="card-body">
-        <span class="badge">Collection Khalifa</span>
+        <span class="badge">Streetwear Collection</span>
         <h3>Veste grise</h3>
-        <p class="price">55 €</p>
+        <p class="price">34,90 €</p>
         <a class="btn" href="produit.html?item=veste-grise">Voir le produit</a>
+        
       </div>
     </article>
 
     <article class="card">
       <img src="images/veste-violette.png" alt="Veste violette">
       <div class="card-body">
-        <span class="badge">Collection Khalifa</span>
+        <span class="badge">Streetwear Collection</span>
         <h3>Veste violette</h3>
-        <p class="price">55 €</p>
+        <p class="price">34,90 €</p>
         <a class="btn" href="produit.html?item=veste-violette">Voir le produit</a>
+        
       </div>
     </article>
 
     <article class="card">
       <img src="images/pantalon-noir.png" alt="Pantalon noir">
       <div class="card-body">
-        <span class="badge">Collection Khalifa</span>
+        <span class="badge">Streetwear Collection</span>
         <h3>Pantalon noir</h3>
-        <p class="price">45 €</p>
+        <p class="price">29,90 €</p>
         <a class="btn" href="produit.html?item=pantalon-noir">Voir le produit</a>
+        
       </div>
     </article>
 
     <article class="card">
       <img src="images/pantalon-gris.png" alt="Pantalon gris">
       <div class="card-body">
-        <span class="badge">Collection Khalifa</span>
+        <span class="badge">Streetwear Collection</span>
         <h3>Pantalon gris</h3>
-        <p class="price">45 €</p>
+        <p class="price">29,90 €</p>
         <a class="btn" href="produit.html?item=pantalon-gris">Voir le produit</a>
+        
       </div>
     </article>
 
     <article class="card">
       <img src="images/pantalon-violet.png" alt="Pantalon violet">
       <div class="card-body">
-        <span class="badge">Collection Khalifa</span>
+        <span class="badge">Streetwear Collection</span>
         <h3>Pantalon violet</h3>
-        <p class="price">45 €</p>
+        <p class="price">29,90 €</p>
         <a class="btn" href="produit.html?item=pantalon-violet">Voir le produit</a>
+        
       </div>
     </article>
+
   </section>
 
   <h3 id="utilitaire" class="section-title">Utilitaire</h3>
@@ -119,6 +131,7 @@
         <h3>Tapis bordeaux</h3>
         <p class="price">20 €</p>
         <a class="btn" href="produit.html?item=tapis-bordeaux">Voir le produit</a>
+        <button class="btn" onclick="addToCart({id:'tapis-bordeaux',name:'Tapis bordeaux',price:20,image:'images/tapis-bordeaux.png',size:'',color:'Bordeaux'})">Ajouter au panier</button>
       </div>
     </article>
   </section>
@@ -126,24 +139,45 @@
 
 <div id="contactPopup" class="popup" onclick="closeContact()">
   <div class="popup-content" onclick="event.stopPropagation()">
-    <button class="popup-close" onclick="closeContact()">×</button>
+    <button class="popup-close" onclick="closeContact()">&#215;</button>
     <h2>Contact</h2>
-    <p>Email : <p>Email : <strong><a href="mailto:contact@rayb.fr">contact@rayb.fr</a></strong></p>
+    <p>Email : <strong><a href="mailto:contact@rayb.fr">contact@rayb.fr</a></strong></p>
     <p>Téléphone : <strong>06 28 49 84 93</strong></p>
   </div>
 </div>
 
+<div id="cartOverlay" class="cart-overlay" onclick="closeCart()"></div>
+<aside id="cartDrawer" class="cart-drawer">
+  <div class="cart-header">
+    <h2>Panier</h2>
+    <button onclick="closeCart()">&#215;</button>
+  </div>
+  <div id="cartItems" class="cart-items"></div>
+  <div class="cart-footer">
+    <div class="cart-total-line">
+      <strong>Total</strong>
+      <strong id="cartTotal">0,00 €</strong>
+    </div>
+    <button class="btn primary cart-checkout" onclick="goToPayment()">Continuer vers le paiement</button>
+  </div>
+</aside>
+
 <footer class="footer">
-  <p>© 2026 R.A.Y.B — Tous droits réservés</p>
+  <div class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="catalogue.html">Catalogue</a>
+    <a href="suivi.html">Suivi commande</a>
+    <a href="mailto:contact@rayb.fr">contact@rayb.fr</a>
+  </div>
+  <p>© 2026 R.A.Y.B — Tous droits réservés · Livraison depuis le 93</p>
 </footer>
 
+<script src="cart.js"></script>
 <script>
-  function openContact() {
-    document.getElementById("contactPopup").style.display = "flex";
-  }
-
-  function closeContact() {
-    document.getElementById("contactPopup").style.display = "none";
+  function openContact() { document.getElementById("contactPopup").style.display = "flex"; }
+  function closeContact() { document.getElementById("contactPopup").style.display = "none"; }
+  function toggleMenu() { document.getElementById("mainNav").classList.toggle("open"); }
+    addToCart({ id, name, price, image, size, color });
   }
 </script>
 
