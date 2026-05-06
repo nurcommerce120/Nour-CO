@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-W9DEFRPRFW"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -10,11 +9,12 @@
     gtag('config', 'G-W9DEFRPRFW');
   </script>
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paiement — R.A.Y.B</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="images/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -22,12 +22,13 @@
   <div class="brand">
     <img src="images/logo-rayb-header.png" alt="Logo R.A.Y.B" class="logo">
     <div class="brand-text">
-      <h1>R.A.Y.B</h1>
       <p>Streetwear Collection</p>
     </div>
   </div>
 
-  <nav class="nav">
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">&#9776;</button>
+
+  <nav class="nav" id="mainNav">
     <a href="index.html">Accueil</a>
     <a href="catalogue.html">Produits</a>
     <a href="suivi.html">Suivi</a>
@@ -39,19 +40,40 @@
   <a class="back-link" href="catalogue.html">← Retour au catalogue</a>
 
   <div class="payment-box">
-    <span class="badge" id="paymentBadge"></span>
-    <h2 id="paymentName"></h2>
+    <span class="badge">Paiement</span>
+    <h2>Finaliser la commande</h2>
 
-    <p class="price big" id="paymentBasePrice"></p>
-    <p class="payment-note" id="paymentOption"></p>
-    <p class="payment-note" id="paymentShipping"></p>
-    <p class="price big" id="paymentTotal"></p>
     <p class="payment-note">Référence commande : <strong id="paymentRef"></strong></p>
+
+    <div id="checkoutItems"></div>
+
+    <div class="shipping-choice">
+      <label class="shipping-check">
+        <input type="checkbox" id="outside93">
+        J'habite en dehors du 93 — ajouter 4,10 € de livraison Mondial Relay
+      </label>
+      <p class="muted shipping-extra" id="shippingText">Livraison Mondial Relay : 4,10 €</p>
+    </div>
+
+    <p class="price big" id="paymentTotal"></p>
+
+    <h3>Informations de livraison</h3>
+
+    <form class="delivery" id="customerForm" onsubmit="return false;">
+      <input id="fullname" placeholder="Nom et prénom" required>
+      <input id="address" placeholder="Adresse" required>
+      <div class="two">
+        <input id="city" placeholder="Ville" required>
+        <input id="postal" placeholder="Code postal" required>
+      </div>
+      <input id="phone" placeholder="Téléphone" required>
+      <input id="email" type="email" placeholder="Adresse e-mail" required>
+    </form>
 
     <p class="shipping-note">
       📍 Remise en main propre possible dans le 93.<br>
-      🚚 En dehors du 93, envoi possible via Mondial Relay, aux frais du client.<br>
-      <strong>Les frais de livraison sont inclus uniquement si l’option hors 93 a été cochée à l’étape précédente.</strong>
+      🚚 En dehors du 93, envoi possible via Mondial Relay.<br>
+      <strong>La commande est enregistrée au moment où vous cliquez sur PayPal ou Revolut.</strong>
     </p>
 
     <iframe name="saveOrderFrame" style="display:none;"></iframe>
@@ -72,13 +94,12 @@
     <div class="pay">
       <form id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
         <input type="hidden" name="cmd" value="_xclick">
-        <input type="hidden" name="business" value="Contact@rayb.fr">
+        <input type="hidden" name="business" value="contact@rayb.fr">
         <input type="hidden" name="item_name" id="ppItem">
         <input type="hidden" name="currency_code" value="EUR">
         <input type="hidden" name="amount" id="ppAmount">
         <input type="hidden" name="item_number" id="ppOrderRef">
         <input type="hidden" name="custom" id="ppOrderRef2">
-
         <button class="btn paypal" type="button" onclick="buyWithPayPal()">
           Acheter maintenant avec PayPal
         </button>
@@ -102,7 +123,7 @@
 
 <div id="contactPopup" class="popup" onclick="closeContact()">
   <div class="popup-content" onclick="event.stopPropagation()">
-    <button class="popup-close" onclick="closeContact()">×</button>
+    <button class="popup-close" onclick="closeContact()">&#215;</button>
     <h2>Contact</h2>
     <p>Email : <strong><a href="mailto:contact@rayb.fr">contact@rayb.fr</a></strong></p>
     <p>Téléphone : <strong>06 28 49 84 93</strong></p>
@@ -110,98 +131,129 @@
 </div>
 
 <footer class="footer">
-  <p>© 2026 R.A.Y.B — Tous droits réservés</p>
+  <div class="footer-links">
+    <a href="index.html">Accueil</a>
+    <a href="catalogue.html">Catalogue</a>
+    <a href="suivi.html">Suivi commande</a>
+    <a href="mailto:contact@rayb.fr">contact@rayb.fr</a>
+  </div>
+  <p>© 2026 R.A.Y.B — Tous droits réservés · Livraison depuis le 93</p>
 </footer>
 
 <script>
   const REVOLUT_LINK = "https://revolut.me/abdelranibel";
+  const SHIPPING_PRICE = 4.10;
 
-  const products = {
-    "veste-noire": { name: "Veste noire", price: 55, badge: "Streetwear Collection" },
-    "veste-grise": { name: "Veste grise", price: 55, badge: "Streetwear Collection" },
-    "veste-violette": { name: "Veste violette", price: 55, badge: "Streetwear Collection" },
-    "pantalon-noir": { name: "Pantalon noir", price: 45, badge: "Streetwear Collection" },
-    "pantalon-gris": { name: "Pantalon gris", price: 45, badge: "Streetwear Collection" },
-    "pantalon-violet": { name: "Pantalon violet", price: 45, badge: "Streetwear Collection" },
-    "tapis-bordeaux": { name: "Tapis bordeaux", price: 20, badge: "Utilitaire" }
-  };
+  function generateOrderRef() {
+    const d = new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    const rand = Math.random().toString(36).substring(2, 7).toUpperCase();
+    return `RYB-${yyyy}${mm}${dd}-${rand}`;
+  }
 
-  const params = new URLSearchParams(window.location.search);
-  const item = params.get("item");
-  const p = products[item];
-  const draft = JSON.parse(sessionStorage.getItem("nour_order_draft") || "null");
+  let cart = JSON.parse(localStorage.getItem("rayb_checkout")) || JSON.parse(localStorage.getItem("rayb_cart")) || [];
 
-  if (!p || !draft || draft.item !== item) {
-    alert("Informations de commande introuvables.");
+  if (!cart.length) {
+    alert("Votre panier est vide.");
     window.location.href = "catalogue.html";
   }
 
-  const productBasePrice = p.price;
-  const shippingPrice = Number(draft.shippingPrice || 0);
-  const shippingIncluded = Boolean(draft.shippingIncluded);
-  const totalPrice = Number(draft.price);
-
-  document.getElementById("paymentBadge").innerText = p.badge;
-  document.getElementById("paymentName").innerText = draft.productName;
-  document.getElementById("paymentBasePrice").innerText = "Prix produit : " + productBasePrice.toFixed(2) + " €";
-  document.getElementById("paymentOption").innerText = "Option choisie : " + draft.option;
-
-  if (shippingIncluded) {
-    document.getElementById("paymentShipping").innerText = "Livraison Mondial Relay : +" + shippingPrice.toFixed(2) + " €";
-  } else {
-    document.getElementById("paymentShipping").innerText = "Livraison : non ajoutée (remise en main propre / à définir)";
-  }
-
-  document.getElementById("paymentTotal").innerText = "Total : " + totalPrice.toFixed(2) + " €";
-  document.getElementById("paymentRef").innerText = draft.reference;
-  document.getElementById("paymentRef2").innerText = draft.reference;
-
-  document.getElementById("ppItem").value = draft.productName + " - " + draft.reference;
-  document.getElementById("ppAmount").value = totalPrice.toFixed(2);
-  document.getElementById("ppOrderRef").value = draft.reference;
-  document.getElementById("ppOrderRef2").value = draft.reference;
-
-  document.getElementById("saveNom").value = draft.nom;
-  document.getElementById("saveAdresse").value = draft.adresse;
-  document.getElementById("saveVille").value = draft.ville;
-  document.getElementById("savePostal").value = draft.code_postal;
-  document.getElementById("saveTelephone").value = draft.telephone;
-  document.getElementById("saveEmail").value = draft.email;
-  document.getElementById("saveProduit").value = draft.productName;
-  document.getElementById("savePrix").value = totalPrice.toFixed(2);
-  document.getElementById("saveOption").value = draft.option;
-  document.getElementById("saveRef").value = draft.reference;
-
+  const ORDER_REF = generateOrderRef();
   let orderSaved = false;
 
+  document.getElementById("paymentRef").innerText = ORDER_REF;
+  document.getElementById("paymentRef2").innerText = ORDER_REF;
+
+  function getProductsTotal() {
+    return cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  }
+  function getShippingPrice() {
+    return document.getElementById("outside93").checked ? SHIPPING_PRICE : 0;
+  }
+  function getTotal() {
+    return getProductsTotal() + getShippingPrice();
+  }
+
+  function renderCheckout() {
+    const box = document.getElementById("checkoutItems");
+    box.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        <img src="${item.image}" alt="${item.name}">
+        <div class="cart-item-info">
+          <strong>${item.name}</strong>
+          <span>${item.size || item.color || ""}</span>
+          <span>Quantité : ${item.quantity}</span>
+          <span>${(item.price * item.quantity).toFixed(2).replace(".", ",")} €</span>
+        </div>
+      </div>
+    `).join("");
+
+    const shipping = getShippingPrice();
+    document.getElementById("shippingText").innerText = shipping > 0
+      ? "Livraison ajoutée : +4,10 €"
+      : "Livraison Mondial Relay : 4,10 €";
+    document.getElementById("paymentTotal").innerText = "Total : " + getTotal().toFixed(2).replace(".", ",") + " €";
+    document.getElementById("ppItem").value = "Commande R.A.Y.B - " + ORDER_REF;
+    document.getElementById("ppAmount").value = getTotal().toFixed(2);
+    document.getElementById("ppOrderRef").value = ORDER_REF;
+    document.getElementById("ppOrderRef2").value = ORDER_REF;
+  }
+
+  document.getElementById("outside93").addEventListener("change", renderCheckout);
+  renderCheckout();
+
+  function validateCustomerForm() {
+    const form = document.getElementById("customerForm");
+    if (!form.checkValidity()) { form.reportValidity(); return false; }
+    return true;
+  }
+
   function saveOrderIfNeeded() {
-    if (!orderSaved) {
-      document.getElementById("saveOrderForm").submit();
-      orderSaved = true;
-    }
+    if (orderSaved) return true;
+    if (!validateCustomerForm()) return false;
+
+    const productsText = cart.map(item => `${item.name} x${item.quantity} (${item.size || item.color || "-"})`).join(" | ");
+    const optionsText = cart.map(item => item.size || item.color || "-").join(" | ");
+
+    document.getElementById("saveNom").value = document.getElementById("fullname").value.trim();
+    document.getElementById("saveAdresse").value = document.getElementById("address").value.trim();
+    document.getElementById("saveVille").value = document.getElementById("city").value.trim();
+    document.getElementById("savePostal").value = document.getElementById("postal").value.trim();
+    document.getElementById("saveTelephone").value = document.getElementById("phone").value.trim();
+    document.getElementById("saveEmail").value = document.getElementById("email").value.trim();
+    document.getElementById("saveProduit").value = productsText;
+    document.getElementById("savePrix").value = getTotal().toFixed(2);
+    document.getElementById("saveOption").value = optionsText;
+    document.getElementById("saveRef").value = ORDER_REF;
+
+    document.getElementById("saveOrderForm").submit();
+    orderSaved = true;
+    return true;
   }
 
   function buyWithPayPal() {
-    saveOrderIfNeeded();
+    if (!saveOrderIfNeeded()) return;
     setTimeout(() => {
       document.getElementById("paypalForm").submit();
+      localStorage.removeItem("rayb_cart");
+      localStorage.removeItem("rayb_checkout");
     }, 600);
   }
 
   function buyWithRevolut() {
-    saveOrderIfNeeded();
+    if (!saveOrderIfNeeded()) return;
     setTimeout(() => {
       window.open(REVOLUT_LINK, "_blank");
+      localStorage.removeItem("rayb_cart");
+      localStorage.removeItem("rayb_checkout");
     }, 600);
   }
 
-  function openContact() {
-    document.getElementById("contactPopup").style.display = "flex";
-  }
-
-  function closeContact() {
-    document.getElementById("contactPopup").style.display = "none";
-  }
+  function openContact() { document.getElementById("contactPopup").style.display = "flex"; }
+  function closeContact() { document.getElementById("contactPopup").style.display = "none"; }
+  function toggleMenu() { document.getElementById("mainNav").classList.toggle("open"); }
 </script>
 
 </body>
