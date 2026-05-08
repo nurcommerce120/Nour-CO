@@ -326,7 +326,7 @@ body{
   background:url("images/hero.jpg") center/cover no-repeat;
   position:relative;
   overflow:hidden;
-  padding:42px 34px;
+  padding:72px 34px 80px;
 }
 
 .hero-dark-layer{
@@ -399,7 +399,8 @@ body{
 
 .hero-cards-wrap{
   width:100%;
-  overflow:hidden;
+  overflow:visible;
+  padding-top:20px;
 }
 
 .hero-cards{
@@ -477,7 +478,7 @@ body{
 .hero-arrow-left{ left:0; }
 .hero-arrow-right{ right:0; }
 
-/* PAGE CATALOGUE — thème sombre premium */
+/* PAGE CATALOGUE — thème sobre : blanc sur noir */
 .catalogue-page {
   background: #0f0f10;
   min-height: 100vh;
@@ -487,6 +488,15 @@ body{
 .catalogue-page .page {
   background: #0f0f10;
   padding: 52px 28px;
+  /* Motif discret : lignes diagonales très fines */
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,.018) 0px,
+      rgba(255,255,255,.018) 1px,
+      transparent 1px,
+      transparent 40px
+    );
 }
 
 .catalogue-page .page-title h2 {
@@ -528,14 +538,45 @@ body{
   background: #1a1a1c;
   border: 1px solid rgba(255,255,255,.08);
   box-shadow: 0 8px 32px rgba(0,0,0,.4);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s;
+  position: relative;
+  z-index: 1;
+}
+
+.catalogue-page .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0,0,0,.55);
+  border-color: rgba(255,255,255,.22);
+  z-index: 2;
+}
+
+/* Trait blanc en haut au hover */
+.catalogue-page .card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 20%; right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
+  opacity: 0;
+  transition: opacity .3s;
+  z-index: 3;
+}
+.catalogue-page .card:hover::before {
+  opacity: 1;
 }
 
 .catalogue-page .card img {
   background: #242426;
 }
 
-.catalogue-page .card-body h3 {
-  color: #0f0f10; 
+.card-body h3 {
+  margin: 0 0 8px;
+  font-size: 19px;
+  color: #0f0f10 !important;
+}
+
+a h3, a:visited h3 {
+  color: inherit;
 }
 
 .catalogue-page .card-body .price {
@@ -679,7 +720,7 @@ body{
 .card-body h3{
   margin:0 0 8px;
   font-size:19px;
-  color:#0f0f10;
+  color:#0f0f10 !important;
 }
 
 .card-body .size-select{
