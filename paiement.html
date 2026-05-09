@@ -36,6 +36,25 @@
   </nav>
 </header>
 
+  <!-- BARRE ANNONCES -->
+  <div class="announcements-bar" id="annBar">
+    <span class="ann-text-center" id="annTextCenter">Aucune annonce pour le moment.</span>
+    <button class="ann-icon-btn" id="annIconBtn" title="Voir toutes les annonces" style="position:relative;">
+      📢
+      <span class="ann-badge" id="annCountBadge" style="display:none;">0</span>
+    </button>
+  </div>
+
+  <!-- PANNEAU HISTORIQUE ANNONCES -->
+  <div id="annOverlay"></div>
+  <div class="ann-panel" id="annPanel">
+    <div class="ann-panel-header">
+      <h3>Annonces</h3>
+      <button class="ann-panel-close" onclick="closeAnnPanel()">&#215;</button>
+    </div>
+    <div class="ann-panel-list" id="annPanelList"></div>
+  </div>
+
 <main class="page">
   <a class="back-link" href="catalogue.html">← Retour au catalogue</a>
 
@@ -58,6 +77,9 @@
     <p class="price big" id="paymentTotal"></p>
 
     <h3>Informations de livraison</h3>
+
+    <!-- Récapitulatif commande -->
+    <div id="orderRecap" style="margin-bottom:20px;border:1px solid var(--border);border-radius:14px;overflow:hidden;"></div>
 
     <form class="delivery" id="customerForm" onsubmit="return false;">
       <input id="fullname" placeholder="Nom et prénom" required>
@@ -190,6 +212,31 @@
       </div>
     `).join("");
 
+    // Récapitulatif compact
+    const recap = document.getElementById("orderRecap");
+    if (recap) {
+      recap.innerHTML = `
+        <div style="background:#0f0f10;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;">
+          <span style="color:#fff;font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:1px;text-transform:uppercase;">Récapitulatif</span>
+          <span style="color:rgba(255,255,255,.5);font-size:13px;">${cart.reduce((s,i)=>s+i.quantity,0)} article(s)</span>
+        </div>
+        ${cart.map(item => `
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-top:1px solid var(--border);">
+            <img src="${item.image}" alt="${item.name}" style="width:52px;height:52px;object-fit:contain;background:#fafafa;border:1px solid var(--border);border-radius:10px;flex-shrink:0;">
+            <div style="flex:1;min-width:0;">
+              <div style="font-weight:700;font-size:14px;color:#0f0f10;">${item.name}</div>
+              <div style="font-size:13px;color:var(--muted);">${item.size || item.color || ""} · Qté ${item.quantity}</div>
+            </div>
+            <div style="font-weight:800;font-size:15px;color:#0f0f10;flex-shrink:0;">${(item.price*item.quantity).toFixed(2).replace(".",",")} €</div>
+          </div>
+        `).join("")}
+        <div style="display:flex;justify-content:space-between;padding:12px 18px;border-top:1px solid var(--border);background:#fafafa;">
+          <span style="font-weight:700;font-size:14px;">Sous-total</span>
+          <span style="font-weight:800;font-size:14px;">${getProductsTotal().toFixed(2).replace(".",",")} €</span>
+        </div>
+      `;
+    }
+
     const shipping = getShippingPrice();
     document.getElementById("shippingText").innerText = shipping > 0
       ? "Livraison ajoutée : +4,10 €"
@@ -256,5 +303,6 @@
   function toggleMenu() { document.getElementById("mainNav").classList.toggle("open"); }
 </script>
 
+  <script src="annonces.js"></script>
 </body>
 </html>
