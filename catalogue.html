@@ -17,7 +17,7 @@
   <link rel="icon" type="image/png" href="images/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
+<body class="catalogue-page">
 
 <header class="header">
   <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">
@@ -37,6 +37,25 @@
     <a href="#" onclick="openCart()">Panier (<span class="cart-count">0</span>)</a>
   </nav>
 </header>
+
+  <!-- BARRE ANNONCES -->
+  <div class="announcements-bar" id="annBar">
+    <span class="ann-text-center" id="annTextCenter">Aucune annonce pour le moment.</span>
+    <button class="ann-icon-btn" id="annIconBtn" title="Voir toutes les annonces" style="position:relative;">
+      📢
+      <span class="ann-badge" id="annCountBadge" style="display:none;">0</span>
+    </button>
+  </div>
+
+  <!-- PANNEAU HISTORIQUE ANNONCES -->
+  <div id="annOverlay"></div>
+  <div class="ann-panel" id="annPanel">
+    <div class="ann-panel-header">
+      <h3>Annonces</h3>
+      <button class="ann-panel-close" onclick="closeAnnPanel()">&#215;</button>
+    </div>
+    <div class="ann-panel-list" id="annPanelList"></div>
+  </div>
 
 <main class="page">
   <div class="page-title">
@@ -177,9 +196,8 @@
   function openContact() { document.getElementById("contactPopup").style.display = "flex"; }
   function closeContact() { document.getElementById("contactPopup").style.display = "none"; }
   function toggleMenu() { document.getElementById("mainNav").classList.toggle("open"); }
-    addToCart({ id, name, price, image, size, color });
-  }
 </script>
 
+  <script src="annonces.js"></script>
 </body>
 </html>
