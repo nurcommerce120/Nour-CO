@@ -1963,3 +1963,1094 @@ body.catalogue-page .badge{
 .product-info p{
   color:inherit;
 }
+
+
+}
+
+
+/* =====================================================
+   PATCH PROPRE R.A.Y.B — ordinateur uniquement + motifs
+   - cache les 3 traits sur ordinateur
+   - garde le menu téléphone
+   - enlève le bleu des cartes accueil
+   - motifs visibles seulement catalogue / produit
+   - galerie produit 4 cases à gauche sur ordinateur
+===================================================== */
+
+/* 1) Bouton 3 traits : invisible sur ordinateur, visible sur téléphone */
+.nav-toggle{
+  display:none !important;
+}
+
+@media (min-width:681px){
+  .header .nav-toggle,
+  button.nav-toggle{
+    display:none !important;
+    visibility:hidden !important;
+    opacity:0 !important;
+    pointer-events:none !important;
+    width:0 !important;
+    height:0 !important;
+    padding:0 !important;
+    margin:0 !important;
+    border:0 !important;
+    overflow:hidden !important;
+  }
+
+  .header .nav{
+    display:flex !important;
+    position:static !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    background:transparent !important;
+    border:0 !important;
+    box-shadow:none !important;
+    padding:0 !important;
+  }
+}
+
+@media (max-width:680px){
+  .header .nav-toggle{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+    width:auto !important;
+    height:auto !important;
+    padding:8px 11px !important;
+    margin:0 !important;
+  }
+}
+
+/* 2) Texte des cartes de la page index : blanc, jamais bleu */
+.hero-card,
+.hero-card:link,
+.hero-card:visited,
+.hero-card:hover,
+.hero-card:active,
+.hero-card *,
+.hero-card-info,
+.hero-card-info span,
+.hero-card-info a{
+  color:#fff !important;
+  text-decoration:none !important;
+}
+
+.hero-card-info span{
+  text-shadow:0 2px 10px rgba(0,0,0,.42) !important;
+}
+
+/* Important : aucun motif ajouté sur les images des cartes de la page index */
+.hero-card img{
+  background:#fff !important;
+  background-image:none !important;
+}
+
+/* 3) Motifs plus visibles uniquement sur catalogue et page produit */
+body.catalogue-page .page,
+body.product-page .page{
+  background-color:#f3f3f3 !important;
+  background-image:
+    linear-gradient(135deg, rgba(0,0,0,.065) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(0,0,0,.065) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(0,0,0,.04) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(0,0,0,.04) 25%, transparent 25%) !important;
+  background-size:82px 82px !important;
+  background-position:0 0, 0 0, 41px 41px, 41px 41px !important;
+}
+
+body.catalogue-page .card img,
+body.product-page .product-image{
+  background-color:#fff !important;
+  background-image:
+    linear-gradient(135deg, rgba(0,0,0,.045) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(0,0,0,.045) 25%, transparent 25%) !important;
+  background-size:44px 44px !important;
+}
+
+body.product-page .product-info,
+body.product-page .product-image{
+  background-color:#fff !important;
+  border:1px solid rgba(0,0,0,.08) !important;
+  box-shadow:0 18px 48px rgba(0,0,0,.08) !important;
+}
+
+/* 4) Page produit ordinateur : 4 cases verticales type Amazon à gauche */
+@media (min-width:681px){
+  body.product-page .product-layout{
+    max-width:1280px !important;
+    grid-template-columns:92px minmax(420px, 1fr) 420px !important;
+    gap:30px !important;
+    align-items:start !important;
+  }
+
+  body.product-page .thumbs{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:18px !important;
+    align-items:center !important;
+    position:sticky !important;
+    top:130px !important;
+    min-height:390px !important;
+  }
+
+  body.product-page .thumb-slot,
+  body.product-page .thumb{
+    width:82px !important;
+    height:82px !important;
+    flex:0 0 82px !important;
+    border:1.5px solid rgba(0,0,0,.35) !important;
+    border-radius:14px !important;
+    background:#fff !important;
+    background-image:none !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    padding:7px !important;
+    cursor:pointer !important;
+    overflow:hidden !important;
+    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease !important;
+  }
+
+  body.product-page .thumb-slot img,
+  body.product-page .thumb{
+    max-width:100% !important;
+    max-height:100% !important;
+    width:100% !important;
+    height:100% !important;
+    object-fit:contain !important;
+    display:block !important;
+    padding:0 !important;
+    border:0 !important;
+    box-shadow:none !important;
+    background:transparent !important;
+  }
+
+  body.product-page .thumb-slot:hover,
+  body.product-page .thumb-slot.active,
+  body.product-page .thumb:hover,
+  body.product-page .thumb.active{
+    border-color:#000 !important;
+    box-shadow:0 8px 22px rgba(0,0,0,.18) !important;
+    transform:translateY(-2px) !important;
+  }
+
+  body.product-page .thumb-slot.empty{
+    cursor:default !important;
+    border-color:rgba(0,0,0,.16) !important;
+    background:
+      linear-gradient(135deg, rgba(0,0,0,.035) 25%, transparent 25%),
+      linear-gradient(225deg, rgba(0,0,0,.035) 25%, transparent 25%),
+      #fff !important;
+    background-size:26px 26px !important;
+  }
+
+  body.product-page .thumb-slot.empty:hover{
+    transform:none !important;
+    box-shadow:none !important;
+    border-color:rgba(0,0,0,.16) !important;
+  }
+
+  body.product-page .product-image{
+    min-height:520px !important;
+  }
+
+  body.product-page .product-image img{
+    transition:opacity .16s ease !important;
+  }
+}
+
+/* Sur téléphone : on garde l'esprit de l'ancienne version et on cache les emplacements vides */
+@media (max-width:680px){
+  body.product-page .thumbs{
+    display:flex !important;
+    flex-direction:row !important;
+    gap:10px !important;
+    overflow-x:auto !important;
+    align-items:center !important;
+    min-height:0 !important;
+  }
+
+  body.product-page .thumb-slot.empty{
+    display:none !important;
+  }
+
+  body.product-page .thumb-slot{
+    width:68px !important;
+    height:68px !important;
+    flex:0 0 68px !important;
+    border:1px solid var(--border) !important;
+    border-radius:12px !important;
+    background:#fafafa !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    padding:6px !important;
+  }
+
+  body.product-page .thumb-slot img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:contain !important;
+  }
+}
+
+/* =========================================================
+   CONTACT POPUP — amélioration esthétique uniquement
+   ========================================================= */
+.popup{
+  background:rgba(0,0,0,.68) !important;
+  backdrop-filter:blur(8px) !important;
+  -webkit-backdrop-filter:blur(8px) !important;
+  padding:22px !important;
+}
+
+.popup-content{
+  width:min(460px, 92vw) !important;
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,.95), rgba(255,255,255,0) 38%),
+    linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%) !important;
+  border:1px solid rgba(255,255,255,.75) !important;
+  border-radius:28px !important;
+  padding:34px 34px 30px !important;
+  position:relative !important;
+  overflow:hidden !important;
+  box-shadow:0 28px 80px rgba(0,0,0,.34) !important;
+  color:#0f0f10 !important;
+  animation:contactPop .22s ease both !important;
+}
+
+.popup-content::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:5px;
+  background:linear-gradient(90deg, #000, #777, #000);
+}
+
+.popup-content::after{
+  content:"R.A.Y.B";
+  position:absolute;
+  right:22px;
+  bottom:14px;
+  font-family:'Times New Roman', serif;
+  font-size:42px;
+  font-weight:700;
+  letter-spacing:5px;
+  color:rgba(0,0,0,.035);
+  pointer-events:none;
+}
+
+.popup-content h2{
+  margin:0 42px 22px 0 !important;
+  font-family:'Oswald', sans-serif !important;
+  font-size:34px !important;
+  line-height:1 !important;
+  letter-spacing:1.5px !important;
+  text-transform:uppercase !important;
+  color:#0f0f10 !important;
+}
+
+.popup-content p{
+  margin:12px 0 !important;
+  padding:15px 16px !important;
+  border:1px solid rgba(0,0,0,.10) !important;
+  border-radius:18px !important;
+  background:rgba(255,255,255,.78) !important;
+  box-shadow:0 10px 24px rgba(0,0,0,.055) !important;
+  font-size:15px !important;
+  line-height:1.45 !important;
+  color:#555 !important;
+}
+
+.popup-content p strong,
+.popup-content p a{
+  color:#0f0f10 !important;
+  font-weight:800 !important;
+}
+
+.popup-content a{
+  text-decoration:none !important;
+}
+
+.popup-content a:hover{
+  text-decoration:underline !important;
+  text-underline-offset:4px !important;
+}
+
+.popup-close{
+  top:18px !important;
+  right:18px !important;
+  width:38px !important;
+  height:38px !important;
+  border-radius:50% !important;
+  background:#0f0f10 !important;
+  color:#fff !important;
+  border:1px solid #0f0f10 !important;
+  font-size:25px !important;
+  line-height:1 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  box-shadow:0 10px 22px rgba(0,0,0,.18) !important;
+  transition:transform .2s ease, background .2s ease, color .2s ease !important;
+}
+
+.popup-close:hover{
+  transform:rotate(90deg) scale(1.04) !important;
+  background:#fff !important;
+  color:#0f0f10 !important;
+}
+
+@keyframes contactPop{
+  from{
+    opacity:0;
+    transform:translateY(14px) scale(.98);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+@media (max-width:680px){
+  .popup{
+    padding:16px !important;
+  }
+
+  .popup-content{
+    border-radius:22px !important;
+    padding:28px 22px 24px !important;
+  }
+
+  .popup-content h2{
+    font-size:28px !important;
+  }
+
+  .popup-content p{
+    font-size:14px !important;
+    padding:13px 14px !important;
+  }
+}
+
+
+/* =========================================================
+   R.A.Y.B — réseaux, footer, avis et pages légales
+   ========================================================= */
+.footer{
+  padding:34px 28px !important;
+}
+.footer-inner{
+  max-width:1180px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1.2fr 1fr 1fr .9fr;
+  gap:22px;
+  align-items:start;
+}
+.footer-brand strong{
+  display:block;
+  font-family:'Times New Roman', serif;
+  font-size:30px;
+  letter-spacing:4px;
+  color:#fff;
+  margin-bottom:6px;
+}
+.footer-brand span{
+  display:block;
+  color:rgba(255,255,255,.72);
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:12px;
+  margin-bottom:10px;
+}
+.footer-brand p{
+  margin:0;
+  color:rgba(255,255,255,.50);
+  font-size:13px;
+  line-height:1.6;
+}
+.footer .footer-links{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:10px;
+}
+.footer .footer-links a{
+  color:rgba(255,255,255,.72) !important;
+  text-decoration:none;
+  font-weight:700;
+  font-size:14px;
+}
+.footer .footer-links a:hover{
+  color:#fff !important;
+}
+.footer-socials{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.footer-socials a,
+.contact-socials a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  padding:11px 16px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.22);
+  background:#fff;
+  color:#0f0f10 !important;
+  text-decoration:none !important;
+  font-weight:900;
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.footer-socials a:hover,
+.contact-socials a:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 24px rgba(0,0,0,.16);
+}
+.contact-label{
+  display:inline-flex;
+  margin-bottom:10px;
+  padding:6px 12px;
+  border-radius:999px;
+  background:#0f0f10;
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1.5px;
+}
+.contact-socials{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin:16px 0 14px;
+}
+.contact-qr-box{
+  display:grid;
+  grid-template-columns:82px 1fr;
+  gap:14px;
+  align-items:center;
+  padding:12px;
+  border:1px solid rgba(0,0,0,.10);
+  border-radius:20px;
+  background:rgba(255,255,255,.78);
+}
+.contact-qr{
+  width:82px;
+  height:82px;
+  border-radius:16px;
+  object-fit:cover;
+  background:#fff;
+}
+.contact-qr-box span{
+  font-size:13px;
+  font-weight:800;
+  color:#555;
+  line-height:1.45;
+}
+.legal-page,
+.reviews-page{
+  background:#f7f7f7;
+  min-height:100vh;
+}
+.legal-wrap,
+.reviews-wrap{
+  max-width:980px;
+  margin:0 auto;
+  padding:52px 26px;
+}
+.legal-card,
+.review-form-box,
+.approved-reviews{
+  background:#fff;
+  border:1.5px solid #0f0f10;
+  border-radius:26px;
+  box-shadow:5px 5px 0 #0f0f10;
+  padding:30px;
+}
+.legal-card h1,
+.reviews-wrap h1{
+  margin:0 0 12px;
+  font-family:'Oswald', sans-serif;
+  font-size:44px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.legal-card h2,
+.approved-reviews h2,
+.review-form-box h2{
+  margin:28px 0 10px;
+  font-family:'Oswald', sans-serif;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+.legal-card p,
+.legal-card li,
+.reviews-wrap p{
+  color:#555;
+  line-height:1.7;
+}
+.legal-card a,
+.reviews-wrap a{
+  color:#0f0f10;
+  font-weight:900;
+}
+.review-form{
+  display:grid;
+  gap:12px;
+  margin-top:16px;
+}
+.review-form input,
+.review-form select,
+.review-form textarea{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:13px 14px;
+  font:inherit;
+  background:#fff;
+}
+.review-form textarea{
+  min-height:130px;
+  resize:vertical;
+}
+.review-list{
+  display:grid;
+  gap:14px;
+  margin-top:18px;
+}
+.review-card{
+  border:1px solid rgba(0,0,0,.12);
+  border-radius:18px;
+  padding:16px;
+  background:#fafafa;
+}
+.review-card strong{
+  display:block;
+  margin-bottom:4px;
+}
+.review-stars{
+  color:#0f0f10;
+  font-weight:900;
+  letter-spacing:2px;
+}
+@media (max-width: 760px){
+  .footer-inner{
+    grid-template-columns:1fr;
+  }
+  .contact-socials{
+    grid-template-columns:1fr;
+  }
+  .contact-qr-box{
+    grid-template-columns:70px 1fr;
+  }
+  .contact-qr{
+    width:70px;
+    height:70px;
+  }
+  .legal-wrap,
+  .reviews-wrap{
+    padding:34px 18px;
+  }
+  .legal-card,
+  .review-form-box,
+  .approved-reviews{
+    padding:22px;
+  }
+}
+
+/* Footer sombre aussi sur catalogue / produit / pages légales */
+body.catalogue-page .footer,
+body.product-page .footer,
+body.legal-page .footer,
+body.reviews-page .footer{
+  background:#0f0f10 !important;
+  color:rgba(255,255,255,.65) !important;
+  border-top:1px solid rgba(255,255,255,.10) !important;
+}
+body.catalogue-page .footer a,
+body.product-page .footer a,
+body.legal-page .footer a,
+body.reviews-page .footer a{
+  color:rgba(255,255,255,.72) !important;
+}
+
+
+/* =========================================================
+   R.A.Y.B — correction présentation footer + stocks
+   ========================================================= */
+.footer{
+  background:#0f0f10 !important;
+  color:rgba(255,255,255,.72) !important;
+  border-top:1px solid rgba(255,255,255,.10) !important;
+  padding:46px 28px !important;
+}
+.footer-inner{
+  max-width:1220px !important;
+  grid-template-columns:1.15fr .9fr 1fr 1fr !important;
+  gap:34px !important;
+}
+.footer-brand{
+  padding-right:16px;
+}
+.footer-brand strong{
+  font-size:36px !important;
+  letter-spacing:7px !important;
+  color:#fff !important;
+  text-shadow:0 0 18px rgba(255,255,255,.12);
+}
+.footer-brand span{
+  color:rgba(255,255,255,.68) !important;
+  letter-spacing:4px !important;
+}
+.footer-brand p{
+  color:rgba(255,255,255,.52) !important;
+  max-width:260px;
+}
+.footer .footer-links{
+  gap:12px !important;
+}
+.footer .footer-links a{
+  color:rgba(255,255,255,.74) !important;
+  transition:color .2s ease, transform .2s ease;
+}
+.footer .footer-links a:hover{
+  color:#fff !important;
+  transform:translateX(3px);
+}
+.footer-socials{
+  gap:14px !important;
+  align-items:stretch !important;
+}
+.footer-socials::before{
+  content:"Réseaux";
+  display:block;
+  color:#fff;
+  font-weight:900;
+  letter-spacing:1px;
+  margin-bottom:2px;
+}
+.footer-socials a{
+  width:100%;
+  min-height:48px !important;
+  border:1px solid rgba(255,255,255,.20) !important;
+  background:linear-gradient(180deg,#fff,#f4f4f4) !important;
+  color:#0f0f10 !important;
+  border-radius:999px !important;
+  box-shadow:0 12px 26px rgba(0,0,0,.22);
+  text-align:center;
+}
+.footer-socials a:first-child::before{
+  content:"📷";
+  margin-right:8px;
+}
+.footer-socials a:nth-child(2)::before{
+  content:"♪";
+  margin-right:8px;
+  font-weight:900;
+}
+.footer-socials a:hover{
+  transform:translateY(-3px) !important;
+  box-shadow:0 18px 34px rgba(0,0,0,.30) !important;
+}
+.contact-socials a{
+  background:#0f0f10 !important;
+  color:#fff !important;
+  border-color:#0f0f10 !important;
+}
+.stock-count.stock-ok{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 13px;
+  border-radius:999px;
+  background:#f1f1f1;
+  color:#111;
+}
+.stock-count.stock-low{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 13px;
+  border-radius:999px;
+  background:#fff4d7;
+  color:#7a4b00;
+}
+.stock-count.stock-out,
+.soldout-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:10px 15px;
+  border-radius:999px;
+  background:#111;
+  color:#fff !important;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  box-shadow:0 10px 22px rgba(0,0,0,.16);
+}
+.product-info.is-soldout{
+  position:relative;
+}
+.product-info.is-soldout::after{
+  content:"ÉPUISÉ";
+  position:absolute;
+  top:20px;
+  right:20px;
+  padding:9px 13px;
+  border-radius:999px;
+  background:#111;
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+.btn.is-disabled,
+.btn:disabled{
+  opacity:.42 !important;
+  cursor:not-allowed !important;
+  transform:none !important;
+  box-shadow:none !important;
+}
+.cart-stock-warning{
+  display:block;
+  margin-top:8px;
+  padding:8px 10px;
+  border-radius:10px;
+  background:#fff3f3;
+  color:#9b1111;
+  font-size:12px;
+  font-weight:800;
+  line-height:1.35;
+}
+.cart-item.out-of-stock{
+  opacity:.72;
+}
+.cart-checkout.is-disabled{
+  pointer-events:none;
+}
+@media (max-width:760px){
+  .footer{
+    padding:34px 22px !important;
+  }
+  .footer-inner{
+    grid-template-columns:1fr !important;
+    text-align:left;
+  }
+  .footer-brand p{
+    max-width:none;
+  }
+  .footer-socials a{
+    max-width:340px;
+  }
+}
+
+/* =========================================================
+   R.A.Y.B — correctif réseaux + prochaines sorties + avis
+   ========================================================= */
+.footer-socials{
+  gap:14px !important;
+}
+.footer-socials::before{
+  content:none !important;
+}
+.footer-socials .footer-title{
+  display:block;
+  color:#fff;
+  font-weight:900;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  font-size:13px;
+  margin-bottom:2px;
+}
+.social-link{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  gap:12px !important;
+  min-height:54px !important;
+  padding:10px 16px 10px 12px !important;
+  border-radius:18px !important;
+  text-decoration:none !important;
+  font-weight:900 !important;
+  letter-spacing:.2px;
+}
+.social-link::before{
+  content:none !important;
+}
+.social-link img{
+  width:34px;
+  height:34px;
+  object-fit:contain;
+  display:block;
+  border-radius:9px;
+  flex:0 0 auto;
+}
+.footer-socials .social-link{
+  background:rgba(255,255,255,.96) !important;
+  color:#0f0f10 !important;
+  border:1px solid rgba(255,255,255,.22) !important;
+  box-shadow:0 14px 32px rgba(0,0,0,.26) !important;
+}
+.footer-socials .social-link:hover{
+  transform:translateY(-3px) !important;
+  background:#fff !important;
+  box-shadow:0 20px 40px rgba(0,0,0,.34) !important;
+}
+.contact-socials .social-link{
+  background:#0f0f10 !important;
+  color:#fff !important;
+  border:1px solid #0f0f10 !important;
+  justify-content:center !important;
+  border-radius:16px !important;
+}
+.contact-socials .social-link img{
+  background:#fff;
+  padding:3px;
+}
+
+.coming-soon-section{
+  max-width:1180px;
+  margin:42px auto 0;
+  padding:0 18px 12px;
+}
+.coming-soon-head{
+  margin-bottom:16px;
+}
+.coming-soon-head span{
+  display:inline-block;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:rgba(0,0,0,.45);
+  margin-bottom:8px;
+}
+.coming-soon-head h3{
+  margin:0;
+  font-family:'Oswald', sans-serif;
+  font-size:36px;
+  line-height:1;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  color:#0f0f10;
+}
+.coming-soon-head p{
+  margin:10px 0 0;
+  color:rgba(0,0,0,.55);
+  font-weight:700;
+}
+.coming-soon-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:20px;
+}
+.coming-card{
+  position:relative;
+  overflow:hidden;
+  min-height:190px;
+  padding:24px;
+  border:1.5px dashed rgba(0,0,0,.40);
+  border-radius:26px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.94), rgba(245,245,245,.86)),
+    repeating-linear-gradient(45deg, rgba(0,0,0,.055) 0 12px, transparent 12px 24px);
+  box-shadow:4px 4px 0 rgba(0,0,0,.88);
+}
+.coming-card::after{
+  content:"+";
+  position:absolute;
+  right:20px;
+  bottom:8px;
+  font-family:'Oswald', sans-serif;
+  font-size:86px;
+  line-height:1;
+  color:rgba(0,0,0,.06);
+}
+.coming-badge{
+  display:inline-flex;
+  padding:7px 12px;
+  border-radius:999px;
+  background:#0f0f10;
+  color:#fff;
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:18px;
+}
+.coming-card h4{
+  margin:0 0 8px;
+  font-family:'Oswald', sans-serif;
+  font-size:24px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#0f0f10;
+}
+.coming-card p{
+  margin:0;
+  color:rgba(0,0,0,.58);
+  font-weight:700;
+  line-height:1.55;
+}
+.review-sent-message{
+  margin:10px 0 0 !important;
+  padding:12px 14px;
+  border-radius:14px;
+  background:#eefaf0;
+  border:1px solid #bfe8c7;
+  color:#17692b !important;
+  font-weight:900;
+  line-height:1.45 !important;
+}
+@media (max-width:760px){
+  .coming-soon-grid{
+    grid-template-columns:1fr;
+  }
+  .social-link{
+    min-height:50px !important;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   R.A.Y.B — avis directement sur la page produit
+══════════════════════════════════════════════ */
+.product-reviews-section{
+  max-width:1180px;
+  margin:34px auto 0;
+  padding:0 18px 34px;
+}
+.product-reviews-head{
+  text-align:left;
+  margin-bottom:18px;
+}
+.reviews-kicker{
+  display:inline-block;
+  padding:7px 13px;
+  border-radius:999px;
+  background:#000;
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.product-reviews-head h2{
+  margin:0;
+  font-family:'Oswald',sans-serif;
+  font-size:34px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.product-reviews-head p{
+  margin:8px 0 0;
+  color:var(--muted);
+}
+.product-reviews-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);
+  gap:22px;
+  align-items:start;
+}
+.product-reviews-list-box,
+.product-review-form-box{
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(0,0,0,.10);
+  border-radius:24px;
+  box-shadow:0 16px 40px rgba(0,0,0,.06);
+  padding:24px;
+  overflow:hidden;
+}
+.product-reviews-list-box h3,
+.product-review-form-box h3{
+  margin:0 0 14px;
+  font-family:'Oswald',sans-serif;
+  font-size:24px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.product-review-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.product-review-list .review-empty{
+  grid-column:1/-1;
+  margin:0;
+  padding:18px;
+  border:1px dashed rgba(0,0,0,.22);
+  border-radius:16px;
+  background:#fafafa;
+}
+.product-review-form textarea{
+  min-height:115px;
+  resize:vertical;
+}
+.product-review-form .btn{
+  width:100%;
+  margin-top:4px;
+}
+.product-review-form .review-sent-message{
+  margin:12px 0 0;
+  padding:12px 14px;
+  border-radius:14px;
+  background:#f3f3f3;
+  border:1px solid rgba(0,0,0,.08);
+  font-weight:700;
+  color:#111;
+}
+@media (max-width: 900px){
+  .product-reviews-grid{
+    grid-template-columns:1fr;
+  }
+  .product-review-list{
+    grid-template-columns:1fr;
+  }
+}
+
+/* ══════════════════════════════════════════════
+   R.A.Y.B — correction avis avec vraies étoiles
+══════════════════════════════════════════════ */
+.star-rating{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
+  padding:12px 14px;
+  border:1.5px solid rgba(0,0,0,.12);
+  border-radius:16px;
+  background:#fff;
+}
+.star-btn{
+  border:0;
+  background:transparent;
+  color:rgba(0,0,0,.22);
+  font-size:30px;
+  line-height:1;
+  cursor:pointer;
+  padding:0 1px;
+  transition:transform .18s ease, color .18s ease;
+}
+.star-btn:hover,
+.star-btn.active{
+  color:#000;
+  transform:translateY(-1px) scale(1.05);
+}
+.star-rating-text{
+  margin-left:8px;
+  color:rgba(0,0,0,.55);
+  font-weight:800;
+  font-size:13px;
+}
+@media (max-width: 700px){
+  .star-rating{ gap:4px; padding:10px 12px; }
+  .star-btn{ font-size:26px; }
+  .star-rating-text{ width:100%; margin-left:0; margin-top:4px; }
+}

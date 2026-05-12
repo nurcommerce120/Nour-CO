@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Avis clients — R.A.Y.B</title>
+</head>
+<body class="reviews-page">
+<header class="header">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">
+    <img src="images/logo-rayb-header.png" alt="Logo R.A.Y.B" class="logo">
+    <div class="brand-text"><p>Streetwear Collection</p></div>
+  </a>
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">&#9776;</button>
+  <nav class="nav" id="mainNav">
+    <a href="index.html">Accueil</a>
+    <a href="catalogue.html">Produits</a>
+    <a href="avis.html">Avis</a>
+    <a href="suivi.html">Suivi</a>
+    <a href="#" onclick="openContact()">Contact</a>
+  </nav>
+</header>
+<main class="reviews-wrap">
+  <h1>Avis clients</h1>
+  <p>Partage ton retour sur une commande R.A.Y.B. L'avis est envoyé à R.A.Y.B par email, puis publié manuellement après vérification.</p>
+  <section class="review-form-box">
+    <h2>Laisser un avis</h2>
+    <iframe name="reviewSubmitFrame" style="display:none;"></iframe>
+    <form class="review-form" action="https://script.google.com/macros/s/AKfycbwzN46vQsAqEEqEFmDPUL-d3qV8Bvst4jEdwv2mWw9I26ya7L0tafYR2pign4P-BCqa/exec" method="POST" target="reviewSubmitFrame" onsubmit="showReviewSentMessage()">
+      <input type="hidden" name="action" value="avis">
+      <input name="nom" placeholder="Ton prénom ou pseudo" required>
+      <input name="email" type="email" placeholder="Ton email" required>
+
+      <div class="star-rating" data-rating="0" aria-label="Choisis une note sur 5">
+        <input type="hidden" name="note" class="star-rating-input" required>
+        <button type="button" class="star-btn" data-value="1" aria-label="1 étoile">★</button>
+        <button type="button" class="star-btn" data-value="2" aria-label="2 étoiles">★</button>
+        <button type="button" class="star-btn" data-value="3" aria-label="3 étoiles">★</button>
+        <button type="button" class="star-btn" data-value="4" aria-label="4 étoiles">★</button>
+        <button type="button" class="star-btn" data-value="5" aria-label="5 étoiles">★</button>
+        <span class="star-rating-text">Choisis ta note</span>
+      </div>
+
+      <textarea name="avis" placeholder="Ton avis" required></textarea>
+      <button class="btn primary" type="submit">Envoyer l'avis</button>
+      <p id="reviewSentMessage" class="review-sent-message" style="display:none;">Merci, ton avis a bien été envoyé à R.A.Y.B. Il sera publié après vérification.</p>
+    </form>
+  </section>
+  <section class="approved-reviews" style="margin-top:28px;">
+    <h2>Avis publiés</h2>
+    <div id="reviewList" class="review-list"></div>
+  </section>
+</main>
+<div id="contactPopup" class="popup" onclick="closeContact()">
+  <div class="popup-content contact-popup-content" onclick="event.stopPropagation()">
+    <button class="popup-close" onclick="closeContact()">&#215;</button>
+    <span class="contact-label">R.A.Y.B</span>
+    <h2>Contact</h2>
+    <p>Email : <strong><a href="mailto:contact@rayb.fr">contact@rayb.fr</a></strong></p>
+    <p>Téléphone : <strong>06 28 49 84 93</strong></p>
+    <div class="contact-socials">
+      <a class="social-link instagram-link" href="https://www.instagram.com/r.a.y.b_officiel/#" target="_blank" rel="noopener">
+        <img src="images/social-instagram.png" alt="Instagram">
+        <span>Instagram</span>
+      </a>
+      <a class="social-link tiktok-link" href="https://www.tiktok.com/@.rayb.fr?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">
+        <img src="images/social-tiktok.png" alt="TikTok">
+        <span>TikTok</span>
+      </a>
+    </div>
+    <div class="contact-qr-box">
+      <img src="images/instagram-qr.png" alt="QR code Instagram R.A.Y.B" class="contact-qr">
+      <span>Scanne le QR code pour retrouver Instagram</span>
+    </div>
+  </div>
+</div>
+<script>function openContact(){document.getElementById("contactPopup").style.display="flex"}function closeContact(){document.getElementById("contactPopup").style.display="none"}function toggleMenu(){document.getElementById("mainNav").classList.toggle("open")}function showReviewSentMessage(){setTimeout(function(){var m=document.getElementById("reviewSentMessage"); if(m)m.style.display="block";},500)}</script>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <strong>R.A.Y.B</strong>
+      <span>Streetwear Collection</span>
+      <p>© 2026 R.A.Y.B — Tous droits réservés · Livraison depuis le 93</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="avis.html">Avis clients</a>
+      <a href="suivi.html">Suivi commande</a>
+      <a href="mailto:contact@rayb.fr">contact@rayb.fr</a>
+    </div>
+    <div class="footer-links footer-legal-links">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="conditions-utilisation.html">Conditions d'utilisation</a>
+      <a href="cgv.html">CGV</a>
+      <a href="politique-confidentialite.html">Confidentialité</a>
+      <a href="politique-retour.html">Retours</a>
+      <a href="livraison.html">Livraison</a>
+    </div>
+    <div class="footer-socials">
+      <span class="footer-title">Réseaux</span>
+      <a class="social-link instagram-link" href="https://www.instagram.com/r.a.y.b_officiel/#" target="_blank" rel="noopener">
+        <img src="images/social-instagram.png" alt="Instagram">
+        <span>Instagram</span>
+      </a>
+      <a class="social-link tiktok-link" href="https://www.tiktok.com/@.rayb.fr?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">
+        <img src="images/social-tiktok.png" alt="TikTok">
+        <span>TikTok</span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function setStarRating(ratingWrap, value){
+    const rating = Number(value || 0);
+    ratingWrap.dataset.rating = String(rating);
+    const input = ratingWrap.querySelector(".star-rating-input");
+    const text = ratingWrap.querySelector(".star-rating-text");
+    if (input) input.value = rating ? String(rating) : "";
+    ratingWrap.querySelectorAll(".star-btn").forEach(btn => {
+      btn.classList.toggle("active", Number(btn.dataset.value) <= rating);
+    });
+    if (text) text.textContent = rating ? rating + " étoile" + (rating > 1 ? "s" : "") : "Choisis ta note";
+  }
+
+  function initStarRatings(){
+    document.querySelectorAll(".star-rating").forEach(ratingWrap => {
+      ratingWrap.querySelectorAll(".star-btn").forEach(btn => {
+        btn.addEventListener("mouseenter", () => setStarRating(ratingWrap, btn.dataset.value));
+        btn.addEventListener("click", () => setStarRating(ratingWrap, btn.dataset.value));
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initStarRatings);
+</script>
+<script src="avis.js"></script>
+</body>
+</html>

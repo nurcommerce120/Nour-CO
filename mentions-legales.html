@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Mentions légales — R.A.Y.B</title>
+</head>
+<body class="legal-page">
+<header class="header">
+  <a href="index.html" class="brand" style="text-decoration:none;color:inherit;">
+    <img src="images/logo-rayb-header.png" alt="Logo R.A.Y.B" class="logo">
+    <div class="brand-text"><p>Streetwear Collection</p></div>
+  </a>
+  <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">&#9776;</button>
+  <nav class="nav" id="mainNav">
+    <a href="index.html">Accueil</a>
+    <a href="catalogue.html">Produits</a>
+    <a href="avis.html">Avis</a>
+    <a href="suivi.html">Suivi</a>
+    <a href="#" onclick="openContact()">Contact</a>
+  </nav>
+</header>
+<main class="legal-wrap"><article class="legal-card"><h1>Mentions légales</h1><p>Dernière mise à jour : 2026.</p><h2>Éditeur du site</h2><p>Le site <strong>rayb.fr</strong> est édité par <strong>R.A.Y.B</strong>.</p><p>Email : <a href="mailto:contact@rayb.fr">contact@rayb.fr</a><br>Téléphone : 06 28 49 84 93<br>Adresse / statut / SIRET : <strong>à compléter</strong>.</p><h2>Hébergement</h2><p>Le site est hébergé via <strong>GitHub Pages</strong>. Le nom de domaine et l'email professionnel sont gérés via <strong>OVH</strong>.</p><h2>Propriété intellectuelle</h2><p>Les textes, visuels, logos, photos et éléments graphiques présents sur le site appartiennent à R.A.Y.B ou à leurs titulaires respectifs. Toute reproduction non autorisée est interdite.</p><h2>Contact</h2><p>Pour toute demande, contactez R.A.Y.B à l'adresse <a href="mailto:contact@rayb.fr">contact@rayb.fr</a>.</p></article></main>
+<div id="contactPopup" class="popup" onclick="closeContact()">
+  <div class="popup-content contact-popup-content" onclick="event.stopPropagation()">
+    <button class="popup-close" onclick="closeContact()">&#215;</button>
+    <span class="contact-label">R.A.Y.B</span>
+    <h2>Contact</h2>
+    <p>Email : <strong><a href="mailto:contact@rayb.fr">contact@rayb.fr</a></strong></p>
+    <p>Téléphone : <strong>06 28 49 84 93</strong></p>
+    <div class="contact-socials">
+      <a class="social-link instagram-link" href="https://www.instagram.com/r.a.y.b_officiel/#" target="_blank" rel="noopener">
+        <img src="images/social-instagram.png" alt="Instagram">
+        <span>Instagram</span>
+      </a>
+      <a class="social-link tiktok-link" href="https://www.tiktok.com/@.rayb.fr?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">
+        <img src="images/social-tiktok.png" alt="TikTok">
+        <span>TikTok</span>
+      </a>
+    </div>
+    <div class="contact-qr-box">
+      <img src="images/instagram-qr.png" alt="QR code Instagram R.A.Y.B" class="contact-qr">
+      <span>Scanne le QR code pour retrouver Instagram</span>
+    </div>
+  </div>
+</div>
+<script>function openContact(){document.getElementById("contactPopup").style.display="flex"}function closeContact(){document.getElementById("contactPopup").style.display="none"}function toggleMenu(){document.getElementById("mainNav").classList.toggle("open")}</script>
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <strong>R.A.Y.B</strong>
+      <span>Streetwear Collection</span>
+      <p>© 2026 R.A.Y.B — Tous droits réservés · Livraison depuis le 93</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="avis.html">Avis clients</a>
+      <a href="suivi.html">Suivi commande</a>
+      <a href="mailto:contact@rayb.fr">contact@rayb.fr</a>
+    </div>
+    <div class="footer-links footer-legal-links">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="conditions-utilisation.html">Conditions d'utilisation</a>
+      <a href="cgv.html">CGV</a>
+      <a href="politique-confidentialite.html">Confidentialité</a>
+      <a href="politique-retour.html">Retours</a>
+      <a href="livraison.html">Livraison</a>
+    </div>
+    <div class="footer-socials">
+      <span class="footer-title">Réseaux</span>
+      <a class="social-link instagram-link" href="https://www.instagram.com/r.a.y.b_officiel/#" target="_blank" rel="noopener">
+        <img src="images/social-instagram.png" alt="Instagram">
+        <span>Instagram</span>
+      </a>
+      <a class="social-link tiktok-link" href="https://www.tiktok.com/@.rayb.fr?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">
+        <img src="images/social-tiktok.png" alt="TikTok">
+        <span>TikTok</span>
+      </a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

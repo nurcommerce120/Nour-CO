@@ -90,7 +90,7 @@
         <select id="size"></select>
       </div>
 
-      <button class="btn primary" type="button" onclick="addCurrentProductToCart()">
+      <button class="btn primary" id="addToCartBtn" type="button" onclick="addCurrentProductToCart()">
         Ajouter au panier
       </button>
 
@@ -101,14 +101,71 @@
       <div id="product-tabs-wrap"></div>
     </div>
   </section>
+
+  <section class="product-reviews-section" id="avis-produit">
+    <div class="product-reviews-head">
+      <span class="reviews-kicker">Avis clients</span>
+      <h2>Ce que pensent les clients</h2>
+      <p>Les avis publiés ici sont ajoutés après vérification par R.A.Y.B.</p>
+    </div>
+
+    <div class="product-reviews-grid">
+      <div class="product-reviews-list-box">
+        <h3>Avis sur ce produit</h3>
+        <div id="productReviewList" class="review-list product-review-list" data-product-id=""></div>
+      </div>
+
+      <div class="product-review-form-box">
+        <h3>Laisser un avis</h3>
+        <p class="muted">Ton avis sera envoyé à R.A.Y.B puis publié après validation.</p>
+        <iframe name="productReviewFrame" style="display:none;"></iframe>
+        <form class="review-form product-review-form" action="https://script.google.com/macros/s/AKfycbwzN46vQsAqEEqEFmDPUL-d3qV8Bvst4jEdwv2mWw9I26ya7L0tafYR2pign4P-BCqa/exec" method="POST" target="productReviewFrame" onsubmit="showProductReviewSentMessage()">
+          <input type="hidden" name="action" value="avis">
+          <input type="hidden" name="produit_id" id="reviewProductId">
+          <input type="hidden" name="produit_nom" id="reviewProductName">
+          <input name="nom" placeholder="Ton prénom" required>
+          <input name="email" type="email" placeholder="Ton e-mail" required>
+
+          <div class="star-rating" data-rating="0" aria-label="Choisis une note sur 5">
+            <input type="hidden" name="note" class="star-rating-input" required>
+            <button type="button" class="star-btn" data-value="1" aria-label="1 étoile">★</button>
+            <button type="button" class="star-btn" data-value="2" aria-label="2 étoiles">★</button>
+            <button type="button" class="star-btn" data-value="3" aria-label="3 étoiles">★</button>
+            <button type="button" class="star-btn" data-value="4" aria-label="4 étoiles">★</button>
+            <button type="button" class="star-btn" data-value="5" aria-label="5 étoiles">★</button>
+            <span class="star-rating-text">Choisis ta note</span>
+          </div>
+
+          <textarea name="avis" placeholder="Ton avis sur le produit" required></textarea>
+          <button class="btn primary" type="submit">Envoyer mon avis</button>
+          <p id="productReviewSentMessage" class="review-sent-message" style="display:none;">Merci, ton avis a bien été transmis à R.A.Y.B.</p>
+        </form>
+      </div>
+    </div>
+  </section>
 </main>
 
 <div id="contactPopup" class="popup" onclick="closeContact()">
-  <div class="popup-content" onclick="event.stopPropagation()">
+  <div class="popup-content contact-popup-content" onclick="event.stopPropagation()">
     <button class="popup-close" onclick="closeContact()">&#215;</button>
+    <span class="contact-label">R.A.Y.B</span>
     <h2>Contact</h2>
     <p>Email : <strong><a href="mailto:contact@rayb.fr">contact@rayb.fr</a></strong></p>
     <p>Téléphone : <strong>06 28 49 84 93</strong></p>
+    <div class="contact-socials">
+      <a class="social-link instagram-link" href="https://www.instagram.com/r.a.y.b_officiel/#" target="_blank" rel="noopener">
+        <img src="images/social-instagram.png" alt="Instagram">
+        <span>Instagram</span>
+      </a>
+      <a class="social-link tiktok-link" href="https://www.tiktok.com/@.rayb.fr?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">
+        <img src="images/social-tiktok.png" alt="TikTok">
+        <span>TikTok</span>
+      </a>
+    </div>
+    <div class="contact-qr-box">
+      <img src="images/instagram-qr.png" alt="QR code Instagram R.A.Y.B" class="contact-qr">
+      <span>Scanne le QR code pour retrouver Instagram</span>
+    </div>
   </div>
 </div>
 
@@ -129,13 +186,39 @@
 </aside>
 
 <footer class="footer">
-  <div class="footer-links">
-    <a href="index.html">Accueil</a>
-    <a href="catalogue.html">Catalogue</a>
-    <a href="suivi.html">Suivi commande</a>
-    <a href="mailto:contact@rayb.fr">contact@rayb.fr</a>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <strong>R.A.Y.B</strong>
+      <span>Streetwear Collection</span>
+      <p>© 2026 R.A.Y.B — Tous droits réservés · Livraison depuis le 93</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Accueil</a>
+      <a href="catalogue.html">Catalogue</a>
+      <a href="avis.html">Avis clients</a>
+      <a href="suivi.html">Suivi commande</a>
+      <a href="mailto:contact@rayb.fr">contact@rayb.fr</a>
+    </div>
+    <div class="footer-links footer-legal-links">
+      <a href="mentions-legales.html">Mentions légales</a>
+      <a href="conditions-utilisation.html">Conditions d'utilisation</a>
+      <a href="cgv.html">CGV</a>
+      <a href="politique-confidentialite.html">Confidentialité</a>
+      <a href="politique-retour.html">Retours</a>
+      <a href="livraison.html">Livraison</a>
+    </div>
+    <div class="footer-socials">
+      <span class="footer-title">Réseaux</span>
+      <a class="social-link instagram-link" href="https://www.instagram.com/r.a.y.b_officiel/#" target="_blank" rel="noopener">
+        <img src="images/social-instagram.png" alt="Instagram">
+        <span>Instagram</span>
+      </a>
+      <a class="social-link tiktok-link" href="https://www.tiktok.com/@.rayb.fr?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">
+        <img src="images/social-tiktok.png" alt="TikTok">
+        <span>TikTok</span>
+      </a>
+    </div>
   </div>
-  <p>© 2026 R.A.Y.B — Tous droits réservés · Livraison depuis le 93</p>
 </footer>
 
 <script src="cart.js"></script>
@@ -154,15 +237,58 @@
   const item = params.get("item") || "veste-noire";
   const p = products[item];
 
+  function setProductReviewContext() {
+    const reviewList = document.getElementById("productReviewList");
+    const reviewProductId = document.getElementById("reviewProductId");
+    const reviewProductName = document.getElementById("reviewProductName");
+    if (reviewList) reviewList.dataset.productId = item;
+    if (reviewProductId) reviewProductId.value = item;
+    if (reviewProductName && p) reviewProductName.value = p.name;
+  }
+
   if (!p) {
     showToast("Produit introuvable.", "error");
     setTimeout(() => { window.location.href = "catalogue.html"; }, 1500);
   } else {
+    setProductReviewContext();
     document.getElementById("pName").innerText = p.name;
     document.getElementById("pPrice").innerText = p.price.toFixed(2).replace(".", ",") + " €";
     document.getElementById("pDesc").innerText = p.desc;
     document.getElementById("productBadge").innerText = p.badge;
-    document.getElementById("stockText").innerText = "Stock restant : " + p.stock;
+    const stockText = document.getElementById("stockText");
+    const addBtn = document.getElementById("addToCartBtn");
+    const productInfoBox = document.querySelector(".product-info");
+
+    function getLocalStockOverride(productId, fallback) {
+      try {
+        const saved = JSON.parse(localStorage.getItem("rayb_stock_overrides")) || {};
+        return Object.prototype.hasOwnProperty.call(saved, productId) ? Number(saved[productId]) : Number(fallback);
+      } catch (e) {
+        return Number(fallback);
+      }
+    }
+
+    function applyStockUI() {
+      p.stock = Math.max(0, getLocalStockOverride(item, p.stock));
+      stockText.classList.remove("stock-ok", "stock-low", "stock-out");
+      productInfoBox.classList.remove("is-soldout");
+      if (p.stock <= 0) {
+        stockText.innerText = "Épuisé";
+        stockText.classList.add("stock-out");
+        addBtn.disabled = true;
+        addBtn.classList.add("is-disabled");
+        addBtn.innerText = "Produit épuisé";
+        productInfoBox.classList.add("is-soldout");
+      } else {
+        stockText.innerText = "Stock restant : " + p.stock;
+        stockText.classList.add(p.stock <= 2 ? "stock-low" : "stock-ok");
+        addBtn.disabled = false;
+        addBtn.classList.remove("is-disabled");
+        addBtn.innerText = "Ajouter au panier";
+      }
+    }
+
+    applyStockUI();
 
     const optionLabel = document.getElementById("optionLabel");
     const sizeSelect = document.getElementById("size");
@@ -176,15 +302,50 @@
     }
 
     const thumbs = document.getElementById("thumbs");
-    p.images.forEach(src => {
+    const mainImg = document.getElementById("mainImg");
+
+    function getGalleryImages(list) {
+      const first = list[0];
+      const dot = first.lastIndexOf(".");
+      const base = dot > -1 ? first.slice(0, dot) : first;
+      const ext = dot > -1 ? first.slice(dot) : ".png";
+      return [first, base + "-2" + ext, base + "-3" + ext, base + "-4" + ext];
+    }
+
+    function setMainImage(src, slot) {
+      if (!src || slot.classList.contains("empty")) return;
+      mainImg.style.opacity = "0";
+      setTimeout(() => {
+        mainImg.src = src;
+        mainImg.style.opacity = "1";
+      }, 80);
+      document.querySelectorAll(".thumb-slot").forEach(t => t.classList.remove("active"));
+      slot.classList.add("active");
+    }
+
+    getGalleryImages(p.images).forEach((src, i) => {
+      const slot = document.createElement("button");
+      slot.type = "button";
+      slot.className = "thumb-slot" + (i === 0 ? " active" : "");
+      slot.setAttribute("aria-label", p.name + " image " + (i + 1));
+
       const img = document.createElement("img");
       img.src = src;
-      img.className = "thumb";
-      img.onclick = () => document.getElementById("mainImg").src = src;
-      thumbs.appendChild(img);
+      img.alt = p.name + " miniature " + (i + 1);
+      img.onerror = () => {
+        img.remove();
+        slot.classList.add("empty");
+        slot.disabled = true;
+      };
+
+      slot.appendChild(img);
+      slot.addEventListener("mouseenter", () => setMainImage(src, slot));
+      slot.addEventListener("focus", () => setMainImage(src, slot));
+      slot.addEventListener("click", () => setMainImage(src, slot));
+      thumbs.appendChild(slot);
     });
 
-    document.getElementById("mainImg").src = p.images[0];
+    mainImg.src = p.images[0];
 
     // Onglets description / livraison
     const tabsHTML = `
@@ -212,7 +373,8 @@
       price: p.price,
       image: p.images[0],
       size: p.type === "vetement" ? option : "",
-      color: p.type === "utilitaire" ? option : p.color
+      color: p.type === "utilitaire" ? option : p.color,
+      stock: p.stock
     });
   }
 
@@ -223,20 +385,47 @@
     document.getElementById(tabId).classList.add('active');
   }
 
-  // Miniatures actives
-  document.querySelectorAll('.thumb').forEach((thumb, i) => {
-    if (i === 0) thumb.classList.add('active');
-    thumb.addEventListener('click', () => {
-      document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-      thumb.classList.add('active');
-    });
-  });
 
   function openContact() { document.getElementById("contactPopup").style.display = "flex"; }
   function closeContact() { document.getElementById("contactPopup").style.display = "none"; }
   function toggleMenu() { document.getElementById("mainNav").classList.toggle("open"); }
+
+  function setStarRating(ratingWrap, value){
+    const rating = Number(value || 0);
+    ratingWrap.dataset.rating = String(rating);
+    const input = ratingWrap.querySelector(".star-rating-input");
+    const text = ratingWrap.querySelector(".star-rating-text");
+    if (input) input.value = rating ? String(rating) : "";
+    ratingWrap.querySelectorAll(".star-btn").forEach(btn => {
+      btn.classList.toggle("active", Number(btn.dataset.value) <= rating);
+    });
+    if (text) text.textContent = rating ? rating + " étoile" + (rating > 1 ? "s" : "") : "Choisis ta note";
+  }
+
+  function initStarRatings(){
+    document.querySelectorAll(".star-rating").forEach(ratingWrap => {
+      ratingWrap.querySelectorAll(".star-btn").forEach(btn => {
+        btn.addEventListener("mouseenter", () => setStarRating(ratingWrap, btn.dataset.value));
+        btn.addEventListener("click", () => setStarRating(ratingWrap, btn.dataset.value));
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initStarRatings);
+
+  function showProductReviewSentMessage(){
+    setTimeout(function(){
+      var m = document.getElementById("productReviewSentMessage");
+      if (m) m.style.display = "block";
+      var form = document.querySelector(".product-review-form");
+      if (form) form.reset();
+      document.querySelectorAll(".star-rating").forEach(function(ratingWrap){ setStarRating(ratingWrap, 0); });
+      setProductReviewContext();
+    }, 500);
+  }
 </script>
 
+  <script src="avis.js"></script>
   <script src="annonces.js"></script>
 </body>
 </html>
